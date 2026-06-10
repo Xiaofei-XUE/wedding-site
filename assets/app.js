@@ -164,9 +164,76 @@ function applyGuestView() {
   }
 }
 
+function setupMusicPlayer() {
+  const musicSrc = './莫文蔚 - 这世界那么多人.mp3';
+  const style = document.createElement('style');
+  style.textContent = `
+    .music-control{position:fixed;right:18px;bottom:18px;z-index:80;display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:10px 14px;border:1px solid rgba(189,146,80,.32);border-radius:999px;background:rgba(255,252,247,.88);color:#8d2f3f;box-shadow:0 16px 36px rgba(73,43,38,.14);backdrop-filter:blur(18px);font:700 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;cursor:pointer;transition:transform .16s ease,box-shadow .16s ease,background .16s ease}
+    .music-control:hover{transform:translateY(-1px);box-shadow:0 20px 42px rgba(73,43,38,.18);background:rgba(255,252,247,.96)}
+    .music-control .music-icon{width:22px;height:22px;display:grid;place-items:center;border-radius:50%;color:#fff;background:linear-gradient(135deg,#a94152,#6a202d);font-size:12px;box-shadow:0 8px 18px rgba(141,47,63,.20)}
+    .music-control.playing .music-icon{animation:musicSpin 2.8s linear infinite}
+    @keyframes musicSpin{to{transform:rotate(360deg)}}
+    @media(max-width:560px){.music-control{right:14px;bottom:14px;min-height:40px;padding:9px 12px}.music-control .music-label{display:none}}
+  `;
+  document.head.appendChild(style);
+
+  const audio = document.createElement('audio');
+  audio.src = musicSrc;
+  audio.loop = true;
+  audio.preload = 'metadata';
+  audio.volume = 0.58;
+  document.body.appendChild(audio);
+
+  const button = document.createElement('button');
+  button.className = 'music-control';
+  button.type = 'button';
+  button.setAttribute('aria-label', '播放或暂停背景音乐');
+  button.innerHTML = '<span class="music-icon">♪</span><span class="music-label">开启音乐</span>';
+  document.body.appendChild(button);
+
+  const label = button.querySelector('.music-label');
+  let hasTriedAutoPlay = false;
+
+  function setState(isPlaying) {
+    button.classList.toggle('playing', isPlaying);
+    label.textContent = isPlaying ? '音乐播放中' : '开启音乐';
+  }
+
+  async function playMusic() {
+    try {
+      await audio.play();
+      setState(true);
+      return true;
+    } catch (error) {
+      setState(false);
+      return false;
+    }
+  }
+
+  button.addEventListener('click', async (event) => {
+    event.stopPropagation();
+    if (audio.paused) {
+      await playMusic();
+    } else {
+      audio.pause();
+      setState(false);
+    }
+  });
+
+  const startOnFirstInteraction = async () => {
+    if (hasTriedAutoPlay || !audio.paused) return;
+    hasTriedAutoPlay = true;
+    await playMusic();
+  };
+
+  document.addEventListener('click', startOnFirstInteraction, { once: true });
+  document.addEventListener('touchstart', startOnFirstInteraction, { once: true, passive: true });
+}
+
 async function init() {
   bindMenu();
   applyGuestView();
+  setupMusicPlayer();
 
   try {
     const [site, schedule, guests] = await Promise.all([
