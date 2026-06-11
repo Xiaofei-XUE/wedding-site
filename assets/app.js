@@ -11,12 +11,14 @@ function resolveAssetPath(path) {
 
 function esc(value) {
   return String(value || '').replace(/[&<>"']/g, (match) => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;'
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   }[match]));
+}
+
+async function loadJson(path) {
+  const response = await fetch(path, { cache: 'no-store' });
+  if (!response.ok) throw new Error(`读取失败：${path}`);
+  return response.json();
 }
 
 function detailBox(label, value, full = false) {
@@ -24,10 +26,14 @@ function detailBox(label, value, full = false) {
   return `<div class="detail-box ${full ? 'full' : ''}"><b>${esc(label)}</b>${esc(value)}</div>`;
 }
 
-async function loadJson(path) {
-  const response = await fetch(path, { cache: 'no-store' });
-  if (!response.ok) throw new Error(`读取失败：${path}`);
-  return response.json();
+function bindMenu() {
+  const menu = $('#menu');
+  const nav = $('#nav');
+  if (!menu || !nav) return;
+  menu.onclick = () => nav.classList.toggle('open');
+  document.querySelectorAll('.nav a').forEach((link) => {
+    link.onclick = () => nav.classList.remove('open');
+  });
 }
 
 function renderPhotos(site) {
@@ -37,7 +43,6 @@ function renderPhotos(site) {
 
   const photos = site.photos || [];
   let photoIndex = 0;
-
   photos.forEach((photo, index) => {
     const img = document.createElement('img');
     img.src = resolveAssetPath(photo.src);
@@ -58,9 +63,7 @@ function renderPhotos(site) {
     dots.querySelectorAll('button').forEach((button, i) => button.classList.toggle('active', i === index));
   }
 
-  if (photos.length > 1) {
-    setInterval(() => showPhoto((photoIndex + 1) % photos.length), 4200);
-  }
+  if (photos.length > 1) setInterval(() => showPhoto((photoIndex + 1) % photos.length), 4200);
 }
 
 function renderCountdown(site) {
@@ -78,25 +81,13 @@ function renderCountdown(site) {
     minute.textContent = String(Math.floor(diff / 60000) % 60).padStart(2, '0');
     second.textContent = String(Math.floor(diff / 1000) % 60).padStart(2, '0');
   }
-
   setInterval(tick, 1000);
   tick();
 }
 
-function addGroomFamilyKpi() {
-  const grid = document.querySelector('.ops-kpi');
-  if (!grid || document.querySelector('[data-kpi="groom-family"]')) return;
-
-  const card = document.createElement('article');
-  card.className = 'kpi-card';
-  card.dataset.kpi = 'groom-family';
-  card.innerHTML = '<span>男方亲友</span><strong>待补充</strong><small>婚礼大厅为主，可作为陪酒候选</small>';
-  grid.insertBefore(card, grid.children[3] || null);
-}
-
 function addHonoredGuestsSection() {
-  const risks = document.querySelector('#risks');
-  if (!risks || document.querySelector('#honored-guests')) return;
+  const risks = $('#risks');
+  if (!risks || $('#honored-guests')) return;
 
   const section = document.createElement('section');
   section.id = 'honored-guests';
@@ -117,46 +108,23 @@ function addHonoredGuestsSection() {
     </div>
   `;
   risks.insertAdjacentElement('afterend', section);
-
-  const nav = document.querySelector('.topbar .nav');
-  if (nav && !nav.querySelector('a[href="#honored-guests"]')) {
-    const link = document.createElement('a');
-    link.href = '#honored-guests';
-    link.textContent = '重要嘉宾';
-    const guestsLink = nav.querySelector('a[href="#guests"]');
-    nav.insertBefore(link, guestsLink || null);
-  }
-
-  const pills = document.querySelector('.nav-pills');
-  if (pills && !pills.querySelector('a[href="#honored-guests"]')) {
-    const link = document.createElement('a');
-    link.href = '#honored-guests';
-    link.textContent = '重要嘉宾/证婚人';
-    const guestsLink = pills.querySelector('a[href="#guests"]');
-    pills.insertBefore(link, guestsLink || null);
-  }
 }
 
 function moveVisualLayoutForward() {
-  const visual = document.querySelector('#visual-layout');
-  const honored = document.querySelector('#honored-guests');
-  const risks = document.querySelector('#risks');
+  const visual = $('#visual-layout');
+  const honored = $('#honored-guests');
+  const risks = $('#risks');
   if (!visual) return;
+  if (honored) honored.insertAdjacentElement('afterend', visual);
+  else if (risks) risks.insertAdjacentElement('afterend', visual);
 
-  if (honored) {
-    honored.insertAdjacentElement('afterend', visual);
-  } else if (risks) {
-    risks.insertAdjacentElement('afterend', visual);
-  }
-
-  const nav = document.querySelector('.topbar .nav');
+  const nav = $('.topbar .nav');
   if (nav) {
     const visualLink = nav.querySelector('a[href="#visual-layout"]');
     const guestsLink = nav.querySelector('a[href="#guests"]');
     if (visualLink && guestsLink) nav.insertBefore(visualLink, guestsLink);
   }
-
-  const pills = document.querySelector('.nav-pills');
+  const pills = $('.nav-pills');
   if (pills) {
     const visualLink = pills.querySelector('a[href="#visual-layout"]');
     const guestsLink = pills.querySelector('a[href="#guests"]');
@@ -164,53 +132,80 @@ function moveVisualLayoutForward() {
   }
 }
 
-function addCarSeatingSection() {
-  if (!document.body.classList.contains('ops-page') || document.querySelector('#cars')) return;
+function reserveWangTeacherTable() {
+  const table11 = Array.from(document.querySelectorAll('#visual-layout .table-node')).find((node) => node.querySelector('strong')?.textContent.trim() === '11桌');
+  if (table11) {
+    table11.classList.remove('warn');
+    table11.classList.add('confirmed');
+    const note = table11.querySelector('small');
+    if (note) note.innerHTML = '王老师<br>硕博同学';
+  }
+}
 
-  const visual = document.querySelector('#visual-layout');
-  const guests = document.querySelector('#guests');
+function carRow(vehicle, use, people, driver, route, status, tag = 'wait') {
+  return `<tr><td>${vehicle}</td><td>${use}</td><td>${people}</td><td>${driver}</td><td>${route}</td><td><span class="tag ${tag}">${status}</span></td></tr>`;
+}
+
+function passengerRow(vehicle, seat, people, items, note, tag = 'wait') {
+  return `<tr><td>${vehicle}</td><td>${seat}</td><td>${people}</td><td>${items}</td><td><span class="tag ${tag}">${note}</span></td></tr>`;
+}
+
+function addCarSeatingSection() {
+  if (!document.body.classList.contains('ops-page') || $('#cars')) return;
+  const visual = $('#visual-layout');
+  const guests = $('#guests');
   const anchor = visual || guests;
   if (!anchor) return;
 
+  const route = '蓝海酒店 → 县城朝阳公园取景 → 绕一圈 → 回婚礼酒店过门';
   const section = document.createElement('section');
   section.id = 'cars';
   section.className = 'section ops-section';
   section.innerHTML = `
     <div class="section-split-head">
       <div class="heading"><p class="kicker">Cars</p><h2>婚车座位安排表</h2></div>
-      <p class="section-note">婚车不仅要确认车辆，还要明确每辆车坐谁、谁开车、几点出发、走哪条路线。</p>
+      <p class="section-note">车队共10辆：劳斯莱斯古斯特1辆、奔驰E300婚车8辆、录像车1辆。集合/发嫁/到达/婚礼酒店均为蓝海酒店。</p>
     </div>
     <div class="table-panel">
-      <div class="table-title"><h3>婚车总览</h3><span>先搭模板，后续根据实际车辆、车牌、司机和人员继续细化</span></div>
+      <div class="table-title"><h3>婚车总览</h3><span>正式车队：1辆古斯特 + 8辆奔驰E300 + 1辆录像车</span></div>
       <table class="work-table">
         <thead><tr><th>车辆</th><th>用途</th><th>乘坐人员</th><th>司机/车牌</th><th>路线与时间</th><th>状态</th></tr></thead>
         <tbody>
-          <tr><td>1号车 · 主婚车</td><td>新人主车</td><td>新郎、新娘</td><td>待补充</td><td>蓝海酒店 → 朝阳公园取景 → 婚礼酒店</td><td><span class="tag wait">车辆待定</span></td></tr>
-          <tr><td>2号车 · 伴郎伴娘车</td><td>随行与物品</td><td>伴郎、伴娘、手捧花/随身物品</td><td>待补充</td><td>跟随主婚车</td><td><span class="tag wait">待分配</span></td></tr>
-          <tr><td>3号车 · 摄影摄像车</td><td>拍摄团队</td><td>摄影、摄像、跟拍或婚庆人员</td><td>待补充</td><td>优先保证拍摄机位和提前到达</td><td><span class="tag wait">待确认</span></td></tr>
-          <tr><td>4号车 · 父母亲友车</td><td>双方父母/重要亲友</td><td>双方父母或重要亲友</td><td>待补充</td><td>按接亲和返程安排执行</td><td><span class="tag wait">待分配</span></td></tr>
-          <tr><td>5号车 · 机动车</td><td>应急/补位</td><td>临时亲友、物料、工作人员</td><td>待补充</td><td>根据当天现场调度</td><td><span class="tag progress">建议预留</span></td></tr>
+          ${carRow('1号车 · 劳斯莱斯古斯特', '主婚车', '新郎、新娘', '待补充', route, '主婚车已定', 'done')}
+          ${carRow('2号车 · 奔驰E300', '跟车', '伴郎/伴娘/随行人员待排', '待补充', '跟随主婚车', '人员待排')}
+          ${carRow('3号车 · 奔驰E300', '跟车', '伴郎/伴娘/随行人员待排', '待补充', '跟随主婚车', '人员待排')}
+          ${carRow('4号车 · 奔驰E300', '跟车', '双方父母/重要亲友待排', '待补充', '跟随主婚车', '人员待排')}
+          ${carRow('5号车 · 奔驰E300', '跟车', '双方父母/重要亲友待排', '待补充', '跟随主婚车', '人员待排')}
+          ${carRow('6号车 · 奔驰E300', '跟车', '男方亲友/工作人员待排', '待补充', '跟随主婚车', '人员待排')}
+          ${carRow('7号车 · 奔驰E300', '跟车', '女方亲友/工作人员待排', '待补充', '跟随主婚车', '人员待排')}
+          ${carRow('8号车 · 奔驰E300', '跟车', '机动亲友待排', '待补充', '跟随主婚车', '人员待排')}
+          ${carRow('9号车 · 奔驰E300', '跟车/机动', '机动亲友、物料或工作人员', '待补充', '跟随主婚车', '机动预留', 'progress')}
+          ${carRow('10号车 · 录像车', '录像与拍摄保障', '录像团队', '待补充', '跟随/提前机位，按摄影摄像需求调整', '录像车已列入', 'done')}
         </tbody>
       </table>
     </div>
     <div class="table-panel">
-      <div class="table-title"><h3>乘坐人员明细</h3><span>后续重点维护：每个人到底坐哪辆车</span></div>
+      <div class="table-title"><h3>乘坐人员明细</h3><span>下一步重点：逐人确认坐哪辆车、司机是谁、车牌是什么</span></div>
       <table class="work-table">
         <thead><tr><th>车辆</th><th>座位/位置</th><th>人员</th><th>携带物品</th><th>备注</th></tr></thead>
         <tbody>
-          <tr><td>1号车 · 主婚车</td><td>后排</td><td>新郎、新娘</td><td>手捧花、戒指盒等需另确认</td><td><span class="tag risk">确认物品保管人</span></td></tr>
-          <tr><td>2号车 · 伴郎伴娘车</td><td>待定</td><td>赵大玮、亢一舟、陶云、宋卓然</td><td>堵门红包、婚鞋、急救包、补妆包</td><td><span class="tag wait">座位待排</span></td></tr>
-          <tr><td>3号车 · 摄影摄像车</td><td>待定</td><td>临沂创影、李强等拍摄人员</td><td>拍摄设备</td><td><span class="tag wait">跟车方式待确认</span></td></tr>
-          <tr><td>4号车 · 父母亲友车</td><td>待定</td><td>双方父母/重要亲友待补充</td><td>胸花、红包、随身物品</td><td><span class="tag wait">人员待补充</span></td></tr>
-          <tr><td>5号车 · 机动车</td><td>待定</td><td>临时人员</td><td>备用物料</td><td><span class="tag progress">应急备用</span></td></tr>
+          ${passengerRow('1号车 · 劳斯莱斯古斯特', '后排', '新郎、新娘', '手捧花、戒指盒等需另确认', '确认物品保管人', 'risk')}
+          ${passengerRow('2号车 · 奔驰E300', '待定', '伴郎/伴娘优先', '堵门红包、婚鞋、急救包、补妆包', '座位待排')}
+          ${passengerRow('3号车 · 奔驰E300', '待定', '伴郎/伴娘/随行人员', '随身物品', '座位待排')}
+          ${passengerRow('4号车 · 奔驰E300', '待定', '双方父母或重要亲友', '胸花、红包、随身物品', '人员待补充')}
+          ${passengerRow('5号车 · 奔驰E300', '待定', '双方父母或重要亲友', '随身物品', '人员待补充')}
+          ${passengerRow('6号车 · 奔驰E300', '待定', '男方亲友/工作人员', '备用物料', '人员待补充')}
+          ${passengerRow('7号车 · 奔驰E300', '待定', '女方亲友/工作人员', '备用物料', '人员待补充')}
+          ${passengerRow('8号车 · 奔驰E300', '待定', '机动亲友', '备用物料', '机动', 'progress')}
+          ${passengerRow('9号车 · 奔驰E300', '待定', '机动亲友/物料', '备用物料', '机动', 'progress')}
+          ${passengerRow('10号车 · 录像车', '待定', '录像团队', '拍摄设备', '拍摄保障', 'done')}
         </tbody>
       </table>
     </div>
   `;
-
   anchor.insertAdjacentElement('afterend', section);
 
-  const nav = document.querySelector('.topbar .nav');
+  const nav = $('.topbar .nav');
   if (nav && !nav.querySelector('a[href="#cars"]')) {
     const link = document.createElement('a');
     link.href = '#cars';
@@ -219,7 +214,7 @@ function addCarSeatingSection() {
     nav.insertBefore(link, guestsLink || null);
   }
 
-  const pills = document.querySelector('.nav-pills');
+  const pills = $('.nav-pills');
   if (pills && !pills.querySelector('a[href="#cars"]')) {
     const link = document.createElement('a');
     link.href = '#cars';
@@ -229,86 +224,25 @@ function addCarSeatingSection() {
   }
 }
 
-function reserveWangTeacherTable() {
-  if (!document.body.classList.contains('ops-page')) return;
-
-  const hallNodes = Array.from(document.querySelectorAll('#visual-layout .table-node'));
-  const table11 = hallNodes.find((node) => node.querySelector('strong')?.textContent.trim() === '11桌');
-  if (table11) {
-    table11.classList.remove('warn');
-    table11.classList.add('confirmed');
-    const note = table11.querySelector('small');
-    if (note) note.innerHTML = '王老师<br>硕博同学';
-  }
-
-  const guestSummaryBody = document.querySelector('#guests .table-panel .work-table tbody');
-  if (guestSummaryBody && !guestSummaryBody.querySelector('[data-group="wang-grad"]')) {
-    const row = document.createElement('tr');
-    row.dataset.group = 'wang-grad';
-    row.innerHTML = '<td>王老师与硕博同学</td><td>待确认</td><td>待定</td><td>大厅11桌</td><td><span class="tag done">单独预留一桌</span></td>';
-    const brideClassmateRow = Array.from(guestSummaryBody.children).find((tr) => tr.children[0]?.textContent.includes('新娘同学'));
-    guestSummaryBody.insertBefore(row, brideClassmateRow || guestSummaryBody.firstElementChild);
-  }
-}
-
-function renderSchedule(schedule) {
-  const container = $('#scheduleStages');
-  if (!container) return;
-
-  const stages = schedule.stages || [];
-  container.innerHTML = stages.map((stage) => `
-    <details class="schedule-stage">
-      <summary class="stage-head">
-        <h3>${esc(stage.stage)}</h3>
-        <span class="stage-meta">${(stage.records || []).length} 项流程</span>
-      </summary>
-      <div class="stage-list">
-        ${(stage.records || []).map((record) => `
-          <article class="schedule-card">
-            <div class="time-pill">${esc(record.time)}</div>
-            <div>
-              <h3>${esc(record.title)}</h3>
-              <p class="meta">人员：${esc(record.people)}</p>
-              <div class="detail-grid">
-                ${detailBox('具体事项', record.task, true)}
-                ${detailBox('所需物品', record.items)}
-                ${detailBox('注意事项', record.note)}
-              </div>
-            </div>
-          </article>
-        `).join('')}
-      </div>
-    </details>
-  `).join('');
-}
-
 function renderGuests(guests) {
   const summary = $('#guestSummary');
   const policy = $('#guestPolicy');
   const groups = $('#guestGroups');
   if (!summary || !policy || !groups) return;
-
   const guestGroups = guests.groups || [];
   const summaryText = guestGroups.map((group) => `${group.name}${group.countLabel && !group.countLabel.includes('待') ? group.countLabel : ''}`).join('；');
   summary.innerHTML = `<span>当前记录：${esc(summaryText)}。</span><span>${esc(guests.summaryNote || '')}</span>`;
   policy.innerHTML = `<strong>宾客安排规则：</strong>${esc(guests.policy || '')}`;
-
   groups.innerHTML = guestGroups.map((group) => `
     <details class="guest-group" ${group.open ? 'open' : ''}>
       <summary>
-        <div class="guest-group-title">
-          <strong>${esc(group.name)}</strong>
-          <span>${esc(group.summary)}</span>
-        </div>
+        <div class="guest-group-title"><strong>${esc(group.name)}</strong><span>${esc(group.summary)}</span></div>
         <div class="guest-group-count">${esc(group.countLabel)}</div>
       </summary>
       <div class="guest-cards">
         ${(group.cards || []).map((card) => `
           <article class="guest-card">
-            <div class="guest-card-head">
-              <div class="guest-card-name">${esc(card.name)}</div>
-              <span class="badge">${esc(card.status)}</span>
-            </div>
+            <div class="guest-card-head"><div class="guest-card-name">${esc(card.name)}</div><span class="badge">${esc(card.status)}</span></div>
             <div class="guest-card-meta">${(card.meta || []).map(esc).join('<br>')}</div>
           </article>
         `).join('')}
@@ -317,58 +251,45 @@ function renderGuests(guests) {
   `).join('');
 }
 
-function renderError(message) {
-  const schedule = $('#scheduleStages');
-  const guests = $('#guestGroups');
-  const html = `<div class="data-error">${esc(message)}。请检查数据文件。</div>`;
-  if (schedule) schedule.innerHTML = html;
-  if (guests) guests.innerHTML = html;
-}
-
-function bindMenu() {
-  const menu = $('#menu');
-  const nav = $('#nav');
-  if (!menu || !nav) return;
-  menu.onclick = () => nav.classList.toggle('open');
-  document.querySelectorAll('.nav a').forEach((link) => {
-    link.onclick = () => nav.classList.remove('open');
-  });
-}
-
-function applyGuestView() {
-  if (new URLSearchParams(location.search).get('view') === 'guest') {
-    document.querySelectorAll('.internal-only').forEach((element) => element.classList.add('hidden'));
-  }
+function renderSchedule(schedule) {
+  const container = $('#scheduleStages');
+  if (!container) return;
+  container.innerHTML = (schedule.stages || []).map((stage) => `
+    <details class="schedule-stage">
+      <summary class="stage-head"><h3>${esc(stage.stage)}</h3><span class="stage-meta">${(stage.records || []).length} 项流程</span></summary>
+      <div class="stage-list">
+        ${(stage.records || []).map((record) => `
+          <article class="schedule-card">
+            <div class="time-pill">${esc(record.time)}</div>
+            <div><h3>${esc(record.title)}</h3><p class="meta">人员：${esc(record.people)}</p>
+              <div class="detail-grid">${detailBox('具体事项', record.task, true)}${detailBox('所需物品', record.items)}${detailBox('注意事项', record.note)}</div>
+            </div>
+          </article>
+        `).join('')}
+      </div>
+    </details>
+  `).join('');
 }
 
 function setupOpsCollapsibles() {
-  const page = document.body;
-  if (!page || !page.classList.contains('ops-page')) return;
-
+  if (!document.body.classList.contains('ops-page')) return;
   document.querySelectorAll('.ops-section').forEach((section) => {
     const head = section.querySelector(':scope > .section-split-head');
     if (!head || section.dataset.collapsibleReady === '1') return;
-
     const body = document.createElement('div');
     body.className = 'ops-collapsible-body';
     const move = [];
     let node = head.nextElementSibling;
-    while (node) {
-      move.push(node);
-      node = node.nextElementSibling;
-    }
+    while (node) { move.push(node); node = node.nextElementSibling; }
     move.forEach((item) => body.appendChild(item));
     section.appendChild(body);
-
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'ops-toggle';
     button.setAttribute('aria-expanded', 'true');
     button.textContent = '收起';
     head.appendChild(button);
-
     section.dataset.collapsibleReady = '1';
-
     button.addEventListener('click', () => {
       const collapsed = section.classList.toggle('is-collapsed');
       button.textContent = collapsed ? '展开' : '收起';
@@ -377,97 +298,60 @@ function setupOpsCollapsibles() {
   });
 }
 
+function renderError(message) {
+  const html = `<div class="data-error">${esc(message)}。请检查数据文件。</div>`;
+  if ($('#scheduleStages')) $('#scheduleStages').innerHTML = html;
+  if ($('#guestGroups')) $('#guestGroups').innerHTML = html;
+}
+
+function applyGuestView() {
+  if (new URLSearchParams(location.search).get('view') === 'guest') {
+    document.querySelectorAll('.internal-only').forEach((element) => element.classList.add('hidden'));
+  }
+}
+
 function setupShareButtons() {
   const buttons = [$('#shareBtn'), ...document.querySelectorAll('[data-share-button]')].filter(Boolean);
   if (!buttons.length) return;
-
-  const shareData = {
-    title: '薛晓飞 & 王艾琳 · Wedding Day',
-    text: '诚邀您参加我们的婚礼：2026年7月29日 11:58，沂南天龙蓝海国际大饭店。',
-    url: 'https://xiaofei-xue.github.io/wedding-site/'
-  };
-
+  const shareData = { title: '薛晓飞 & 王艾琳 · Wedding Day', text: '诚邀您参加我们的婚礼：2026年7月29日 11:58，沂南天龙蓝海国际大饭店。', url: 'https://xiaofei-xue.github.io/wedding-site/' };
   const isWeChat = /MicroMessenger/i.test(navigator.userAgent || '');
-
   async function copyLink() {
-    try {
-      await navigator.clipboard.writeText(shareData.url);
-      return true;
-    } catch (error) {
+    try { await navigator.clipboard.writeText(shareData.url); return true; }
+    catch {
       const input = document.createElement('input');
-      input.value = shareData.url;
-      input.setAttribute('readonly', 'readonly');
-      input.style.position = 'fixed';
-      input.style.left = '-9999px';
-      document.body.appendChild(input);
-      input.select();
-      input.setSelectionRange(0, input.value.length);
-      const copied = document.execCommand('copy');
-      input.remove();
-      return copied;
+      input.value = shareData.url; input.setAttribute('readonly', 'readonly'); input.style.position = 'fixed'; input.style.left = '-9999px';
+      document.body.appendChild(input); input.select(); input.setSelectionRange(0, input.value.length);
+      const copied = document.execCommand('copy'); input.remove(); return copied;
     }
   }
-
-  async function handleShare(event) {
-    const button = event.currentTarget;
+  buttons.forEach((button) => button.addEventListener('click', async () => {
     const oldText = button.textContent;
-
     if (!isWeChat && navigator.share) {
-      try {
-        await navigator.share(shareData);
-        return;
-      } catch (error) {
-        if (error && error.name === 'AbortError') return;
-      }
+      try { await navigator.share(shareData); return; } catch (error) { if (error?.name === 'AbortError') return; }
     }
-
     const copied = await copyLink();
     button.textContent = copied ? '链接已复制' : '长按复制网址';
-    window.setTimeout(() => {
-      button.textContent = oldText;
-    }, 1800);
-
-    if (isWeChat) {
-      window.alert(copied
-        ? '链接已复制。微信里建议直接粘贴发给亲友；也可以点右上角“…”再选择发送给朋友。'
-        : `请手动复制这个链接发送给亲友：${shareData.url}`
-      );
-      return;
-    }
-
-    if (copied) {
-      window.alert('婚礼网站链接已复制，可以粘贴发送给亲友。');
-    }
-  }
-
-  buttons.forEach((button) => button.addEventListener('click', handleShare));
+    window.setTimeout(() => { button.textContent = oldText; }, 1800);
+    if (isWeChat) window.alert(copied ? '链接已复制。微信里建议直接粘贴发给亲友；也可以点右上角“…”再选择发送给朋友。' : `请手动复制这个链接发送给亲友：${shareData.url}`);
+    else if (copied) window.alert('婚礼网站链接已复制，可以粘贴发送给亲友。');
+  }));
 }
 
 async function init() {
   bindMenu();
   applyGuestView();
   setupShareButtons();
-  addGroomFamilyKpi();
   addHonoredGuestsSection();
   moveVisualLayoutForward();
   addCarSeatingSection();
   reserveWangTeacherTable();
   setupOpsCollapsibles();
-
   try {
     const site = await loadJson('bundle/a.json');
     renderPhotos(site);
     renderCountdown(site);
-
-    if ($('#scheduleStages')) {
-      const schedule = await loadJson('bundle/b.json');
-      renderSchedule(schedule);
-    }
-
-    if ($('#guestGroups')) {
-      const guests = await loadJson('data/guests.json');
-      renderGuests(guests);
-    }
+    if ($('#scheduleStages')) renderSchedule(await loadJson('bundle/b.json'));
+    if ($('#guestGroups')) renderGuests(await loadJson('data/guests.json'));
   } catch (error) {
     console.error(error);
     renderError(error.message || '数据读取失败');
