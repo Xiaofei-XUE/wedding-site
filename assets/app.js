@@ -28,6 +28,7 @@ function detailBox(label, value, full = false) {
 
 function ensureStylesheet(id, href) {
   if (document.getElementById(id)) return;
+  if (href && Array.from(document.styleSheets).some((sheet) => sheet.href && sheet.href.includes(href.split('?')[0]))) return;
   const link = document.createElement('link');
   link.id = id;
   link.rel = 'stylesheet';
@@ -47,7 +48,6 @@ function bindMenu() {
 
 function setupInternalHero() {
   if (!document.body.classList.contains('ops-page')) return;
-  ensureStylesheet('internalHeroStyle', 'assets/internal-hero.css?v=elegant-copy-20260611-v2');
   const home = $('#home');
   if (!home || home.dataset.internalHeroReady === '1') return;
 
