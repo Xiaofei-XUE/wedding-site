@@ -47,7 +47,7 @@ function bindMenu() {
 
 function setupInternalHero() {
   if (!document.body.classList.contains('ops-page')) return;
-  ensureStylesheet('internalHeroStyle', 'assets/internal-hero.css?v=elegant-copy-20260611-v1');
+  ensureStylesheet('internalHeroStyle', 'assets/internal-hero.css?v=elegant-copy-20260611-v2');
   const home = $('#home');
   if (!home || home.dataset.internalHeroReady === '1') return;
 
@@ -56,7 +56,7 @@ function setupInternalHero() {
     <div class="ops-hero-bg" aria-hidden="true"><span>囍</span><span>良辰</span><span>佳期</span></div>
 
     <div class="ops-hero-copy">
-      <p class="ops-eyebrow">Wedding Preparation</p>
+      <p class="ops-eyebrow">良辰佳期</p>
       <div class="ops-title-card">
         <span class="ops-title-seal">囍</span>
         <h1>晓飞 <span>&amp;</span> 艾琳</h1>
@@ -93,14 +93,14 @@ function setupInternalHero() {
 
     <aside class="ops-hero-media" id="photos" aria-label="婚纱照轮播">
       <figure class="ops-photo-card" id="photoCarousel">
-        <div class="ops-photo-badge">Wedding Photos</div>
+        <div class="ops-photo-badge">婚纱照</div>
         <div class="ops-photo-dots" id="photoDots"></div>
-        <figcaption class="ops-photo-caption"><strong>Our Wedding Photos</strong><small>晓飞 &amp; 艾琳</small></figcaption>
+        <figcaption class="ops-photo-caption"><strong>我们的婚纱照</strong><small>晓飞 &amp; 艾琳</small></figcaption>
         <div class="ops-countdown">
-          <div><strong id="d">--</strong><span>Days</span></div>
-          <div><strong id="h">--</strong><span>Hours</span></div>
-          <div><strong id="m">--</strong><span>Minutes</span></div>
-          <div><strong id="s">--</strong><span>Seconds</span></div>
+          <div><strong id="d">--</strong><span>天</span></div>
+          <div><strong id="h">--</strong><span>时</span></div>
+          <div><strong id="m">--</strong><span>分</span></div>
+          <div><strong id="s">--</strong><span>秒</span></div>
         </div>
       </figure>
     </aside>
@@ -113,14 +113,14 @@ function setupInternalHero() {
   quick.className = 'section ops-quick-entry';
   quick.innerHTML = `
     <div class="ops-module-grid">
-      <a class="ops-module" href="#risks"><span>Priority</span><strong>重点事项</strong><small>近期需要确认的安排</small></a>
-      <a class="ops-module" href="#honored-guests"><span>Guest</span><strong>嘉宾</strong><small>证婚人与仪式嘉宾</small></a>
-      <a class="ops-module" href="#visual-layout"><span>Layout</span><strong>席位</strong><small>大厅桌位与包间</small></a>
-      <a class="ops-module" href="#cars"><span>Cars</span><strong>婚车</strong><small>车辆与乘坐安排</small></a>
-      <a class="ops-module" href="#guests"><span>Guests</span><strong>宾客</strong><small>分组与人数确认</small></a>
-      <a class="ops-module" href="#rooms"><span>Hotel</span><strong>住宿</strong><small>房型与入住安排</small></a>
-      <a class="ops-module" href="#meals"><span>Meals</span><strong>宴席</strong><small>晚餐与午餐包间</small></a>
-      <a class="ops-module" href="#todo"><span>List</span><strong>清单</strong><small>婚礼前待确认事项</small></a>
+      <a class="ops-module" href="#risks"><span>重点</span><strong>重点事项</strong><small>近期需要确认的安排</small></a>
+      <a class="ops-module" href="#honored-guests"><span>嘉宾</span><strong>嘉宾</strong><small>证婚人与仪式嘉宾</small></a>
+      <a class="ops-module" href="#visual-layout"><span>席位</span><strong>席位</strong><small>大厅桌位与包间</small></a>
+      <a class="ops-module" href="#cars"><span>婚车</span><strong>婚车</strong><small>车辆与乘坐安排</small></a>
+      <a class="ops-module" href="#guests"><span>宾客</span><strong>宾客</strong><small>分组与人数确认</small></a>
+      <a class="ops-module" href="#rooms"><span>住宿</span><strong>住宿</strong><small>房型与入住安排</small></a>
+      <a class="ops-module" href="#meals"><span>宴席</span><strong>宴席</strong><small>晚餐与午餐包间</small></a>
+      <a class="ops-module" href="#todo"><span>清单</span><strong>清单</strong><small>婚礼前待确认事项</small></a>
     </div>
   `;
   home.insertAdjacentElement('afterend', quick);
