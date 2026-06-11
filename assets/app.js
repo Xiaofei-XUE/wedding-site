@@ -178,16 +178,19 @@ async function init() {
   applyGuestView();
 
   try {
-    const [site, schedule, guests] = await Promise.all([
-      loadJson('bundle/a.json'),
-      loadJson('bundle/b.json'),
-      loadJson('data/guests.json')
-    ]);
-
+    const site = await loadJson('bundle/a.json');
     renderPhotos(site);
     renderCountdown(site);
-    renderSchedule(schedule);
-    renderGuests(guests);
+
+    if ($('#scheduleStages')) {
+      const schedule = await loadJson('bundle/b.json');
+      renderSchedule(schedule);
+    }
+
+    if ($('#guestGroups')) {
+      const guests = await loadJson('data/guests.json');
+      renderGuests(guests);
+    }
   } catch (error) {
     console.error(error);
     renderError(error.message || '数据读取失败');
