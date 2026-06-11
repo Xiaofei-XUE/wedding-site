@@ -94,17 +94,47 @@ function addGroomFamilyKpi() {
   grid.insertBefore(card, grid.children[3] || null);
 }
 
-function addWitnessPerson() {
-  const peopleSection = document.querySelector('#people');
-  if (!peopleSection || document.querySelector('[data-role="witness-wang"]')) return;
+function addHonoredGuestsSection() {
+  const risks = document.querySelector('#risks');
+  if (!risks || document.querySelector('#honored-guests')) return;
 
-  const tbody = peopleSection.querySelector('.work-table tbody');
-  if (!tbody) return;
+  const section = document.createElement('section');
+  section.id = 'honored-guests';
+  section.className = 'section ops-section';
+  section.innerHTML = `
+    <div class="section-split-head">
+      <div class="heading"><p class="kicker">Honored Guests</p><h2>重要嘉宾与仪式角色</h2></div>
+      <p class="section-note">证婚人属于婚礼仪式核心角色，单独管理，不放入普通人员分工表。</p>
+    </div>
+    <div class="table-panel">
+      <div class="table-title"><h3>证婚人与仪式嘉宾</h3><span>建议后续补充沟通状态、发言时间和主持人衔接方式</span></div>
+      <table class="work-table">
+        <thead><tr><th>角色</th><th>人员</th><th>仪式职责</th><th>当前状态</th><th>下一步</th></tr></thead>
+        <tbody>
+          <tr><td>证婚人</td><td>王老师</td><td>婚礼仪式证婚发言，见证新人婚礼仪式</td><td><span class="tag wait">重点沟通</span></td><td>确认是否邀请、发言时长、主持人串词与上台时间</td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+  risks.insertAdjacentElement('afterend', section);
 
-  const row = document.createElement('tr');
-  row.dataset.role = 'witness-wang';
-  row.innerHTML = '<td>证婚人</td><td>王老师</td><td>婚礼仪式证婚发言、见证新人婚礼仪式</td><td><span class="tag wait">待沟通</span></td>';
-  tbody.insertBefore(row, tbody.firstElementChild);
+  const nav = document.querySelector('.topbar .nav');
+  if (nav && !nav.querySelector('a[href="#honored-guests"]')) {
+    const link = document.createElement('a');
+    link.href = '#honored-guests';
+    link.textContent = '重要嘉宾';
+    const guestsLink = nav.querySelector('a[href="#guests"]');
+    nav.insertBefore(link, guestsLink || null);
+  }
+
+  const pills = document.querySelector('.nav-pills');
+  if (pills && !pills.querySelector('a[href="#honored-guests"]')) {
+    const link = document.createElement('a');
+    link.href = '#honored-guests';
+    link.textContent = '重要嘉宾/证婚人';
+    const guestsLink = pills.querySelector('a[href="#guests"]');
+    pills.insertBefore(link, guestsLink || null);
+  }
 }
 
 function renderSchedule(schedule) {
@@ -201,7 +231,7 @@ function setupOpsCollapsibles() {
   const page = document.body;
   if (!page || !page.classList.contains('ops-page')) return;
 
-  const defaultOpenSections = new Set(['risks', 'guests', 'visual-layout']);
+  const defaultOpenSections = new Set(['risks', 'honored-guests', 'guests', 'visual-layout']);
 
   document.querySelectorAll('.ops-section').forEach((section) => {
     const head = section.querySelector(':scope > .section-split-head');
@@ -308,7 +338,7 @@ async function init() {
   applyGuestView();
   setupShareButtons();
   addGroomFamilyKpi();
-  addWitnessPerson();
+  addHonoredGuestsSection();
   setupOpsCollapsibles();
 
   try {
