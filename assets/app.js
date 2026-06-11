@@ -85,6 +85,47 @@ function renderCountdown(site) {
   tick();
 }
 
+function setupInternalHero() {
+  if (!document.body.classList.contains('ops-page')) return;
+  const home = $('#home');
+  const inner = home?.querySelector(':scope > div');
+  if (!home || !inner || inner.dataset.internalHeroReady === '1') return;
+
+  const kicker = inner.querySelector(':scope > .kicker');
+  const title = inner.querySelector(':scope > h1');
+  const lead = inner.querySelector(':scope > .lead');
+  const kpi = inner.querySelector(':scope > .ops-kpi');
+  const navPills = inner.querySelector(':scope > .nav-pills');
+  const countdown = inner.querySelector(':scope > .countdown');
+
+  const heroGrid = document.createElement('div');
+  heroGrid.className = 'internal-hero-grid';
+
+  const copy = document.createElement('div');
+  copy.className = 'internal-hero-copy';
+  [kicker, title, lead].filter(Boolean).forEach((item) => copy.appendChild(item));
+
+  const photoPanel = document.createElement('aside');
+  photoPanel.className = 'internal-hero-photo';
+  photoPanel.innerHTML = `
+    <article class="photo-carousel internal-photo-carousel" id="photoCarousel">
+      <div class="photo-dots" id="photoDots"></div>
+      <div class="photo-caption"><strong>Wedding Photos</strong><small>晓飞 & 艾琳</small></div>
+    </article>
+  `;
+  if (countdown) {
+    countdown.removeAttribute('style');
+    countdown.classList.add('internal-mini-countdown');
+    photoPanel.appendChild(countdown);
+  }
+
+  heroGrid.append(copy, photoPanel);
+  inner.insertBefore(heroGrid, kpi || navPills || inner.firstChild);
+  if (kpi) kpi.classList.add('internal-kpi-strip');
+  if (navPills) navPills.classList.add('internal-nav-grid');
+  inner.dataset.internalHeroReady = '1';
+}
+
 function addHonoredGuestsSection() {
   const risks = $('#risks');
   if (!risks || $('#honored-guests')) return;
@@ -327,6 +368,7 @@ async function init() {
   setupOpsCollapsibles();
   try {
     const site = await loadJson('bundle/a.json');
+    setupInternalHero();
     renderPhotos(site);
     renderCountdown(site);
     if ($('#scheduleStages')) renderSchedule(await loadJson('bundle/b.json'));
