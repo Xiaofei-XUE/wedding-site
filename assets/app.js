@@ -47,14 +47,14 @@ function bindMenu() {
 
 function setupInternalHero() {
   if (!document.body.classList.contains('ops-page')) return;
-  ensureStylesheet('internalHeroStyle', 'assets/internal-hero.css?v=isolated-internal-hero-20260611-v2');
+  ensureStylesheet('internalHeroStyle', 'assets/internal-hero.css?v=isolated-internal-hero-20260611-v3');
   const home = $('#home');
   if (!home || home.dataset.internalHeroReady === '1') return;
 
   home.className = 'section internal-copied-hero';
   home.innerHTML = `
     <div class="hero-ornaments" aria-hidden="true"><span>囍</span><span>良辰</span><span>佳期</span></div>
-    <div>
+    <div class="internal-hero-copy">
       <p class="kicker">Internal Wedding Operations</p>
       <div class="hero-title-card">
         <span class="title-seal">囍</span>
@@ -85,7 +85,7 @@ function setupInternalHero() {
         <a href="#cars" class="btn ghost">查看婚车安排</a>
       </div>
     </div>
-    <div class="hero-panel wedding-photo-frame" id="photos">
+    <div class="internal-hero-media hero-panel wedding-photo-frame" id="photos">
       <article class="photo-carousel" id="photoCarousel">
         <div class="photo-dots" id="photoDots"></div>
         <div class="photo-caption"><strong>Our Wedding Photos</strong><small>晓飞 &amp; 艾琳</small></div>
