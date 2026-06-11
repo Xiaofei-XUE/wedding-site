@@ -87,6 +87,13 @@ function renderCountdown(site) {
 
 function setupInternalHero() {
   if (!document.body.classList.contains('ops-page')) return;
+  if (!$('#internalHomeStyle')) {
+    const link = document.createElement('link');
+    link.id = 'internalHomeStyle';
+    link.rel = 'stylesheet';
+    link.href = 'assets/internal-home.css?v=internal-photo-v3';
+    document.head.appendChild(link);
+  }
   const home = $('#home');
   const inner = home?.querySelector(':scope > div');
   if (!home || !inner || inner.dataset.internalHeroReady === '1') return;
@@ -98,6 +105,7 @@ function setupInternalHero() {
   const navPills = inner.querySelector(':scope > .nav-pills');
   const countdown = inner.querySelector(':scope > .countdown');
 
+  inner.classList.add('internal-home-inner');
   const heroGrid = document.createElement('div');
   heroGrid.className = 'internal-hero-grid';
 
