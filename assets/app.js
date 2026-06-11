@@ -47,73 +47,80 @@ function bindMenu() {
 
 function setupInternalHero() {
   if (!document.body.classList.contains('ops-page')) return;
-  ensureStylesheet('internalHeroStyle', 'assets/internal-hero.css?v=isolated-internal-hero-20260611-v4');
+  ensureStylesheet('internalHeroStyle', 'assets/internal-hero.css?v=ops-clean-hero-20260611-v1');
   const home = $('#home');
   if (!home || home.dataset.internalHeroReady === '1') return;
 
-  home.className = 'section internal-copied-hero';
+  home.className = 'section ops-hero';
   home.innerHTML = `
-    <div class="hero-ornaments" aria-hidden="true"><span>囍</span><span>良辰</span><span>佳期</span></div>
-    <div class="internal-hero-copy">
-      <p class="kicker">Internal Wedding Operations</p>
-      <div class="hero-title-card">
-        <span class="title-seal">囍</span>
-        <h1>晓飞 <span class="amp">&amp;</span> 艾琳</h1>
-        <p class="hero-subline">备婚总控台 · 内部筹备看板</p>
+    <div class="ops-hero-bg" aria-hidden="true"><span>囍</span><span>良辰</span><span>佳期</span></div>
+
+    <div class="ops-hero-copy">
+      <p class="ops-eyebrow">Internal Wedding Operations</p>
+      <div class="ops-title-card">
+        <span class="ops-title-seal">囍</span>
+        <h1>晓飞 <span>&amp;</span> 艾琳</h1>
+        <p>备婚总控台 · 内部筹备看板</p>
       </div>
-      <p class="lead">这里作为我们俩的内部备婚小站：集中记录宾客、住宿、包间、婚车、待办、人员分工和当天执行风险。先看关键事项，再进入各模块细节。</p>
-      <div class="wedding-status-row">
+      <p class="ops-lead">这里作为我们俩的内部备婚小站：集中记录宾客、住宿、包间、婚车、待办、人员分工和当天执行风险。先看关键事项，再进入各模块细节。</p>
+
+      <div class="ops-status-row">
         <span><b>总控</b> 风险 / 桌位 / 包间 / 婚车</span>
         <span><b>重点</b> 宾客确认 / 住宿房型 / 陪酒人员</span>
         <span><b>入口</b> 内部筹备模块集中管理</span>
       </div>
-      <div class="event-brief">
-        <div class="brief-item"><b>2026年7月29日 11:58</b><span>婚礼当天 · 午宴开席</span></div>
-        <div class="brief-item"><b>沂南天龙蓝海国际大饭店</b><span>婚礼大厅、包间、住宿和婚车集合均围绕酒店安排</span></div>
-        <div class="brief-item"><b>当前优先处理</b><span>桌位包间图、婚车座位、宾客确认、住宿房型</span></div>
-        <div class="brief-item"><b>内部管理入口</b><span>风险、重要嘉宾、桌位、婚车、宾客、住宿、待办</span></div>
+
+      <div class="ops-brief-grid">
+        <article><b>2026年7月29日 11:58</b><small>婚礼当天 · 午宴开席</small></article>
+        <article><b>沂南天龙蓝海国际大饭店</b><small>大厅、包间、住宿和婚车集合均围绕酒店安排</small></article>
+        <article><b>当前优先处理</b><small>桌位包间图、婚车座位、宾客确认、住宿房型</small></article>
+        <article><b>内部管理入口</b><small>风险、重要嘉宾、桌位、婚车、宾客、住宿、待办</small></article>
       </div>
-      <div class="hero-ribbon">
+
+      <div class="ops-ribbon">
         <span><b>风险</b> 当天执行</span>
         <span><b>桌位</b> 大厅 / 包间</span>
         <span><b>婚车</b> 10辆车队</span>
         <span><b>宾客</b> 按组确认</span>
       </div>
-      <div class="actions">
-        <a href="#risks" class="btn primary">查看待处理风险</a>
-        <a href="#visual-layout" class="btn ghost">查看桌位包间图</a>
-        <a href="#cars" class="btn ghost">查看婚车安排</a>
+
+      <div class="ops-actions">
+        <a href="#risks" class="ops-btn ops-btn-primary">查看待处理风险</a>
+        <a href="#visual-layout" class="ops-btn">查看桌位包间图</a>
+        <a href="#cars" class="ops-btn">查看婚车安排</a>
       </div>
     </div>
-    <div class="internal-hero-media" id="photos">
-      <article class="internal-photo-card" id="photoCarousel">
-        <div class="internal-photo-dots" id="photoDots"></div>
-        <div class="internal-photo-caption"><strong>Our Wedding Photos</strong><small>晓飞 &amp; 艾琳</small></div>
-      </article>
-      <div class="internal-countdown">
-        <div><strong id="d">--</strong><span>Days</span></div>
-        <div><strong id="h">--</strong><span>Hours</span></div>
-        <div><strong id="m">--</strong><span>Minutes</span></div>
-        <div><strong id="s">--</strong><span>Seconds</span></div>
-      </div>
-    </div>
+
+    <aside class="ops-hero-media" id="photos" aria-label="婚纱照轮播">
+      <figure class="ops-photo-card" id="photoCarousel">
+        <div class="ops-photo-badge">Wedding Photos</div>
+        <div class="ops-photo-dots" id="photoDots"></div>
+        <figcaption class="ops-photo-caption"><strong>Our Wedding Photos</strong><small>晓飞 &amp; 艾琳</small></figcaption>
+        <div class="ops-countdown">
+          <div><strong id="d">--</strong><span>Days</span></div>
+          <div><strong id="h">--</strong><span>Hours</span></div>
+          <div><strong id="m">--</strong><span>Minutes</span></div>
+          <div><strong id="s">--</strong><span>Seconds</span></div>
+        </div>
+      </figure>
+    </aside>
   `;
 
   const oldQuick = $('#internal-quick-entry');
   if (oldQuick) oldQuick.remove();
   const quick = document.createElement('section');
   quick.id = 'internal-quick-entry';
-  quick.className = 'section internal-quick-entry';
+  quick.className = 'section ops-quick-entry';
   quick.innerHTML = `
-    <div class="module-map">
-      <a class="module-tile" href="#risks"><span>Priority</span><strong>待处理风险</strong><small>优先处理影响当天执行的事项。</small></a>
-      <a class="module-tile" href="#honored-guests"><span>Guest</span><strong>重要嘉宾</strong><small>证婚人、仪式嘉宾和重点沟通事项。</small></a>
-      <a class="module-tile" href="#visual-layout"><span>Layout</span><strong>桌位包间图</strong><small>大厅桌位、7月28日晚餐和7月29日午餐包间。</small></a>
-      <a class="module-tile" href="#cars"><span>Cars</span><strong>婚车安排</strong><small>车辆、乘坐人员、司机车牌、路线与携带物品。</small></a>
-      <a class="module-tile" href="#guests"><span>Guests</span><strong>宾客确认</strong><small>按新郎同学、新娘同学、亲友等分组管理。</small></a>
-      <a class="module-tile" href="#rooms"><span>Hotel</span><strong>住宿安排</strong><small>入住人员、房型、拼房和到店时间。</small></a>
-      <a class="module-tile" href="#meals"><span>Meals</span><strong>晚餐午餐</strong><small>7月28日晚餐、7月29日午餐及包间陪酒安排。</small></a>
-      <a class="module-tile" href="#todo"><span>Todo</span><strong>备婚待办</strong><small>按未完成、进行中、已完成持续更新。</small></a>
+    <div class="ops-module-grid">
+      <a class="ops-module" href="#risks"><span>Priority</span><strong>待处理风险</strong><small>优先处理影响当天执行的事项。</small></a>
+      <a class="ops-module" href="#honored-guests"><span>Guest</span><strong>重要嘉宾</strong><small>证婚人、仪式嘉宾和重点沟通事项。</small></a>
+      <a class="ops-module" href="#visual-layout"><span>Layout</span><strong>桌位包间图</strong><small>大厅桌位、7月28日晚餐和7月29日午餐包间。</small></a>
+      <a class="ops-module" href="#cars"><span>Cars</span><strong>婚车安排</strong><small>车辆、乘坐人员、司机车牌、路线与携带物品。</small></a>
+      <a class="ops-module" href="#guests"><span>Guests</span><strong>宾客确认</strong><small>按新郎同学、新娘同学、亲友等分组管理。</small></a>
+      <a class="ops-module" href="#rooms"><span>Hotel</span><strong>住宿安排</strong><small>入住人员、房型、拼房和到店时间。</small></a>
+      <a class="ops-module" href="#meals"><span>Meals</span><strong>晚餐午餐</strong><small>7月28日晚餐、7月29日午餐及包间陪酒安排。</small></a>
+      <a class="ops-module" href="#todo"><span>Todo</span><strong>备婚待办</strong><small>按未完成、进行中、已完成持续更新。</small></a>
     </div>
   `;
   home.insertAdjacentElement('afterend', quick);
