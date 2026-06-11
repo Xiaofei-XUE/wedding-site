@@ -183,6 +183,8 @@ function setupShareButtons() {
     url: 'https://xiaofei-xue.github.io/wedding-site/'
   };
 
+  const isWeChat = /MicroMessenger/i.test(navigator.userAgent || '');
+
   async function copyLink() {
     try {
       await navigator.clipboard.writeText(shareData.url);
@@ -190,8 +192,12 @@ function setupShareButtons() {
     } catch (error) {
       const input = document.createElement('input');
       input.value = shareData.url;
+      input.setAttribute('readonly', 'readonly');
+      input.style.position = 'fixed';
+      input.style.left = '-9999px';
       document.body.appendChild(input);
       input.select();
+      input.setSelectionRange(0, input.value.length);
       const copied = document.execCommand('copy');
       input.remove();
       return copied;
@@ -201,7 +207,8 @@ function setupShareButtons() {
   async function handleShare(event) {
     const button = event.currentTarget;
     const oldText = button.textContent;
-    if (navigator.share) {
+
+    if (!isWeChat && navigator.share) {
       try {
         await navigator.share(shareData);
         return;
@@ -211,13 +218,21 @@ function setupShareButtons() {
     }
 
     const copied = await copyLink();
-    button.textContent = copied ? '链接已复制' : '请复制当前网址';
+    button.textContent = copied ? '链接已复制' : '长按复制网址';
     window.setTimeout(() => {
       button.textContent = oldText;
     }, 1800);
 
+    if (isWeChat) {
+      window.alert(copied
+        ? '链接已复制。微信里建议直接粘贴发给亲友；也可以点右上角“…”再选择发送给朋友。'
+        : `请手动复制这个链接发送给亲友：${shareData.url}`
+      );
+      return;
+    }
+
     if (copied) {
-      window.alert('婚礼网站链接已复制。微信里可以粘贴发送给亲友；如果在微信内打开，也可以点右上角“…”分享。');
+      window.alert('婚礼网站链接已复制，可以粘贴发送给亲友。');
     }
   }
 
