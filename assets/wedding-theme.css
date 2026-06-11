@@ -1,0 +1,278 @@
+/* Festive wedding atmosphere layer: public homepage only */
+:root{
+  --wedding-red:#8d2f3f;
+  --wedding-deep:#5f1928;
+  --wedding-gold:#c89b54;
+  --wedding-cream:#fff7ee;
+  --wedding-blush:#f7ded8;
+}
+
+body{
+  background:
+    radial-gradient(circle at 12% 2%,rgba(141,47,63,.28),transparent 25rem),
+    radial-gradient(circle at 84% 6%,rgba(200,155,84,.46),transparent 30rem),
+    radial-gradient(circle at 50% 98%,rgba(255,195,195,.38),transparent 34rem),
+    linear-gradient(135deg,#fff4eb 0%,#fffdf9 38%,#f1d9d4 100%);
+}
+
+body:before{
+  background:
+    radial-gradient(ellipse at 18% 20%,rgba(255,255,255,.52),rgba(255,255,255,0) 18rem),
+    radial-gradient(ellipse at 78% 18%,rgba(255,232,195,.48),rgba(255,232,195,0) 18rem),
+    linear-gradient(rgba(200,155,84,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(200,155,84,.06) 1px,transparent 1px);
+  background-size:auto,auto,36px 36px,36px 36px;
+}
+
+.topbar{
+  border-color:rgba(200,155,84,.36);
+  background:rgba(255,250,244,.90);
+  box-shadow:0 18px 54px rgba(95,25,40,.12);
+}
+
+.seal{
+  background:linear-gradient(135deg,#b83f50,#631a29);
+  box-shadow:0 16px 34px rgba(141,47,63,.28),inset 0 0 0 1px rgba(255,255,255,.35);
+}
+
+.wedding-hero{
+  position:relative;
+  isolation:isolate;
+  margin-top:24px;
+  padding:54px 44px 40px;
+  border:1px solid rgba(200,155,84,.34);
+  border-radius:46px;
+  overflow:hidden;
+  background:
+    linear-gradient(118deg,rgba(255,252,247,.88),rgba(255,244,235,.70) 42%,rgba(141,47,63,.10)),
+    radial-gradient(circle at 8% 12%,rgba(141,47,63,.16),transparent 20rem),
+    radial-gradient(circle at 86% 2%,rgba(200,155,84,.25),transparent 22rem);
+  box-shadow:0 34px 110px rgba(95,25,40,.16);
+}
+
+.wedding-hero:before{
+  content:"";
+  position:absolute;
+  inset:18px;
+  z-index:-1;
+  border:1px solid rgba(200,155,84,.26);
+  border-radius:34px;
+  pointer-events:none;
+}
+
+.wedding-hero:after{
+  content:"囍";
+  position:absolute;
+  right:34%;
+  bottom:-92px;
+  z-index:-1;
+  color:rgba(141,47,63,.055);
+  font-family:"STSong","Songti SC","SimSun",serif;
+  font-size:250px;
+  font-weight:900;
+  line-height:1;
+  pointer-events:none;
+}
+
+.hero-ornaments{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+}
+
+.hero-ornaments span{
+  position:absolute;
+  display:grid;
+  place-items:center;
+  width:52px;
+  height:52px;
+  border:1px solid rgba(200,155,84,.32);
+  border-radius:50%;
+  color:rgba(141,47,63,.38);
+  background:rgba(255,249,241,.62);
+  font-family:"STSong","Songti SC","SimSun",serif;
+  font-size:22px;
+  font-weight:900;
+  box-shadow:0 12px 34px rgba(95,25,40,.08);
+}
+
+.hero-ornaments span:nth-child(1){left:26px;top:24px}
+.hero-ornaments span:nth-child(2){right:31%;top:34px;color:rgba(200,155,84,.58)}
+.hero-ornaments span:nth-child(3){left:42%;bottom:28px;color:rgba(141,47,63,.30)}
+
+.hero-title-card{
+  position:relative;
+  display:inline-block;
+  padding:18px 22px 18px 24px;
+  border:1px solid rgba(200,155,84,.34);
+  border-radius:30px;
+  background:linear-gradient(135deg,rgba(255,253,248,.82),rgba(255,244,235,.56));
+  box-shadow:0 20px 56px rgba(95,25,40,.10);
+  backdrop-filter:blur(16px);
+}
+
+.hero-title-card h1:before{display:none}
+.hero-title-card h1{font-size:clamp(48px,7.4vw,92px)}
+.title-seal{
+  position:absolute;
+  right:18px;
+  top:-20px;
+  display:grid;
+  place-items:center;
+  width:48px;
+  height:48px;
+  border-radius:16px;
+  color:#fff;
+  background:linear-gradient(135deg,#b83f50,#651a29);
+  box-shadow:0 16px 34px rgba(141,47,63,.24);
+  transform:rotate(8deg);
+  font-weight:900;
+}
+
+.hero-subline{
+  margin:8px 0 0;
+  color:var(--wedding-gold);
+  font-weight:850;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:12px;
+}
+
+.wedding-status-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:18px;
+  max-width:760px;
+}
+
+.wedding-status-row span{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  min-height:36px;
+  padding:8px 12px;
+  border:1px solid rgba(200,155,84,.28);
+  border-radius:999px;
+  background:rgba(255,255,255,.64);
+  color:var(--muted);
+  font-size:13px;
+  font-weight:780;
+}
+
+.wedding-status-row b{
+  color:var(--wedding-red);
+  font-weight:900;
+}
+
+.atmosphere-card{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
+  max-width:720px;
+  margin-top:18px;
+}
+
+.atmosphere-card div{
+  min-height:92px;
+  padding:16px;
+  border:1px solid rgba(118,70,64,.12);
+  border-radius:22px;
+  background:rgba(255,252,247,.68);
+}
+
+.atmosphere-card strong{
+  display:block;
+  color:var(--ink);
+  font-size:16px;
+}
+
+.atmosphere-card small{
+  display:block;
+  margin-top:7px;
+  color:var(--muted);
+  line-height:1.55;
+}
+
+.wedding-photo-frame{
+  position:relative;
+}
+
+.wedding-photo-frame:before{
+  content:"Wedding Photos";
+  position:absolute;
+  z-index:4;
+  left:22px;
+  top:-12px;
+  padding:8px 13px;
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:999px;
+  color:#fff;
+  background:linear-gradient(135deg,rgba(141,47,63,.88),rgba(95,25,40,.82));
+  box-shadow:0 14px 32px rgba(95,25,40,.20);
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.wedding-photo-frame:after{
+  content:"";
+  position:absolute;
+  inset:-12px;
+  z-index:-1;
+  border-radius:42px;
+  background:linear-gradient(135deg,rgba(200,155,84,.28),rgba(141,47,63,.12));
+  filter:blur(2px);
+}
+
+.photo-carousel{
+  border:1px solid rgba(200,155,84,.38);
+  box-shadow:0 34px 100px rgba(95,25,40,.22);
+}
+
+.photo-caption{
+  background:linear-gradient(135deg,rgba(95,25,40,.58),rgba(47,35,33,.34));
+}
+
+.countdown{
+  border:1px solid rgba(200,155,84,.28);
+  background:linear-gradient(145deg,rgba(141,47,63,.12),rgba(255,255,255,.74));
+  box-shadow:0 18px 48px rgba(95,25,40,.10);
+}
+
+.event-brief .brief-item,
+.module-tile,
+.overview-main,
+.overview-side,
+.guide-card,
+.flow-chip{
+  box-shadow:0 18px 48px rgba(95,25,40,.09);
+}
+
+.overview-main{
+  background:linear-gradient(145deg,rgba(141,47,63,.18),rgba(255,253,248,.78));
+}
+
+.module-tile strong,
+.guide-card h3{
+  letter-spacing:-.035em;
+}
+
+@media(max-width:1040px){
+  .wedding-hero{padding:42px 26px 32px}
+  .wedding-hero:after{right:5%;font-size:190px}
+  .hero-ornaments span:nth-child(2){right:28px}
+  .atmosphere-card{grid-template-columns:1fr}
+}
+
+@media(max-width:560px){
+  .wedding-hero{margin-top:16px;padding:34px 18px 24px;border-radius:32px}
+  .wedding-hero:before{inset:10px;border-radius:24px}
+  .hero-title-card{padding:16px;border-radius:24px}
+  .title-seal{width:40px;height:40px;right:14px;top:-16px}
+  .hero-subline{letter-spacing:.08em}
+  .wedding-status-row span{width:100%;justify-content:space-between}
+  .photo-carousel{min-height:420px}
+}
