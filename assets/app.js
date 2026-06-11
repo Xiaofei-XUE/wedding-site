@@ -164,6 +164,71 @@ function moveVisualLayoutForward() {
   }
 }
 
+function addCarSeatingSection() {
+  if (!document.body.classList.contains('ops-page') || document.querySelector('#cars')) return;
+
+  const visual = document.querySelector('#visual-layout');
+  const guests = document.querySelector('#guests');
+  const anchor = visual || guests;
+  if (!anchor) return;
+
+  const section = document.createElement('section');
+  section.id = 'cars';
+  section.className = 'section ops-section';
+  section.innerHTML = `
+    <div class="section-split-head">
+      <div class="heading"><p class="kicker">Cars</p><h2>婚车座位安排表</h2></div>
+      <p class="section-note">婚车不仅要确认车辆，还要明确每辆车坐谁、谁开车、几点出发、走哪条路线。</p>
+    </div>
+    <div class="table-panel">
+      <div class="table-title"><h3>婚车总览</h3><span>先搭模板，后续根据实际车辆、车牌、司机和人员继续细化</span></div>
+      <table class="work-table">
+        <thead><tr><th>车辆</th><th>用途</th><th>乘坐人员</th><th>司机/车牌</th><th>路线与时间</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td>1号车 · 主婚车</td><td>新人主车</td><td>新郎、新娘</td><td>待补充</td><td>蓝海酒店 → 朝阳公园取景 → 婚礼酒店</td><td><span class="tag wait">车辆待定</span></td></tr>
+          <tr><td>2号车 · 伴郎伴娘车</td><td>随行与物品</td><td>伴郎、伴娘、手捧花/随身物品</td><td>待补充</td><td>跟随主婚车</td><td><span class="tag wait">待分配</span></td></tr>
+          <tr><td>3号车 · 摄影摄像车</td><td>拍摄团队</td><td>摄影、摄像、跟拍或婚庆人员</td><td>待补充</td><td>优先保证拍摄机位和提前到达</td><td><span class="tag wait">待确认</span></td></tr>
+          <tr><td>4号车 · 父母亲友车</td><td>双方父母/重要亲友</td><td>双方父母或重要亲友</td><td>待补充</td><td>按接亲和返程安排执行</td><td><span class="tag wait">待分配</span></td></tr>
+          <tr><td>5号车 · 机动车</td><td>应急/补位</td><td>临时亲友、物料、工作人员</td><td>待补充</td><td>根据当天现场调度</td><td><span class="tag progress">建议预留</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-panel">
+      <div class="table-title"><h3>乘坐人员明细</h3><span>后续重点维护：每个人到底坐哪辆车</span></div>
+      <table class="work-table">
+        <thead><tr><th>车辆</th><th>座位/位置</th><th>人员</th><th>携带物品</th><th>备注</th></tr></thead>
+        <tbody>
+          <tr><td>1号车 · 主婚车</td><td>后排</td><td>新郎、新娘</td><td>手捧花、戒指盒等需另确认</td><td><span class="tag risk">确认物品保管人</span></td></tr>
+          <tr><td>2号车 · 伴郎伴娘车</td><td>待定</td><td>赵大玮、亢一舟、陶云、宋卓然</td><td>堵门红包、婚鞋、急救包、补妆包</td><td><span class="tag wait">座位待排</span></td></tr>
+          <tr><td>3号车 · 摄影摄像车</td><td>待定</td><td>临沂创影、李强等拍摄人员</td><td>拍摄设备</td><td><span class="tag wait">跟车方式待确认</span></td></tr>
+          <tr><td>4号车 · 父母亲友车</td><td>待定</td><td>双方父母/重要亲友待补充</td><td>胸花、红包、随身物品</td><td><span class="tag wait">人员待补充</span></td></tr>
+          <tr><td>5号车 · 机动车</td><td>待定</td><td>临时人员</td><td>备用物料</td><td><span class="tag progress">应急备用</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  anchor.insertAdjacentElement('afterend', section);
+
+  const nav = document.querySelector('.topbar .nav');
+  if (nav && !nav.querySelector('a[href="#cars"]')) {
+    const link = document.createElement('a');
+    link.href = '#cars';
+    link.textContent = '婚车';
+    const guestsLink = nav.querySelector('a[href="#guests"]');
+    nav.insertBefore(link, guestsLink || null);
+  }
+
+  const pills = document.querySelector('.nav-pills');
+  if (pills && !pills.querySelector('a[href="#cars"]')) {
+    const link = document.createElement('a');
+    link.href = '#cars';
+    link.textContent = '婚车座位安排';
+    const guestsLink = pills.querySelector('a[href="#guests"]');
+    pills.insertBefore(link, guestsLink || null);
+  }
+}
+
 function reserveWangTeacherTable() {
   if (!document.body.classList.contains('ops-page')) return;
 
@@ -385,6 +450,7 @@ async function init() {
   addGroomFamilyKpi();
   addHonoredGuestsSection();
   moveVisualLayoutForward();
+  addCarSeatingSection();
   reserveWangTeacherTable();
   setupOpsCollapsibles();
 
