@@ -47,7 +47,7 @@ function bindMenu() {
 
 function setupInternalHero() {
   if (!document.body.classList.contains('ops-page')) return;
-  ensureStylesheet('internalHeroStyle', 'assets/internal-hero.css?v=ops-clean-hero-20260611-v1');
+  ensureStylesheet('internalHeroStyle', 'assets/internal-hero.css?v=ops-clean-hero-20260611-v3');
   const home = $('#home');
   if (!home || home.dataset.internalHeroReady === '1') return;
 
@@ -56,38 +56,38 @@ function setupInternalHero() {
     <div class="ops-hero-bg" aria-hidden="true"><span>囍</span><span>良辰</span><span>佳期</span></div>
 
     <div class="ops-hero-copy">
-      <p class="ops-eyebrow">Internal Wedding Operations</p>
+      <p class="ops-eyebrow">Wedding Ops</p>
       <div class="ops-title-card">
         <span class="ops-title-seal">囍</span>
         <h1>晓飞 <span>&amp;</span> 艾琳</h1>
-        <p>备婚总控台 · 内部筹备看板</p>
+        <p>备婚总控台</p>
       </div>
-      <p class="ops-lead">这里作为我们俩的内部备婚小站：集中记录宾客、住宿、包间、婚车、待办、人员分工和当天执行风险。先看关键事项，再进入各模块细节。</p>
+      <p class="ops-lead">宾客、住宿、包间、婚车、流程和风险集中管理。</p>
 
       <div class="ops-status-row">
-        <span><b>总控</b> 风险 / 桌位 / 包间 / 婚车</span>
-        <span><b>重点</b> 宾客确认 / 住宿房型 / 陪酒人员</span>
-        <span><b>入口</b> 内部筹备模块集中管理</span>
+        <span><b>总控</b> 风险 / 桌位 / 婚车</span>
+        <span><b>重点</b> 宾客 / 住宿 / 陪酒</span>
+        <span><b>执行</b> 流程 / 分工 / 联系人</span>
       </div>
 
       <div class="ops-brief-grid">
-        <article><b>2026年7月29日 11:58</b><small>婚礼当天 · 午宴开席</small></article>
-        <article><b>沂南天龙蓝海国际大饭店</b><small>大厅、包间、住宿和婚车集合均围绕酒店安排</small></article>
-        <article><b>当前优先处理</b><small>桌位包间图、婚车座位、宾客确认、住宿房型</small></article>
-        <article><b>内部管理入口</b><small>风险、重要嘉宾、桌位、婚车、宾客、住宿、待办</small></article>
+        <article><b>2026年7月29日 11:58</b><small>婚礼午宴</small></article>
+        <article><b>沂南天龙蓝海国际大饭店</b><small>大厅 / 包间 / 住宿</small></article>
+        <article><b>当前优先</b><small>桌位 · 婚车 · 宾客 · 住宿</small></article>
+        <article><b>内部入口</b><small>风险 · 人员 · 联系人</small></article>
       </div>
 
       <div class="ops-ribbon">
-        <span><b>风险</b> 当天执行</span>
-        <span><b>桌位</b> 大厅 / 包间</span>
-        <span><b>婚车</b> 10辆车队</span>
-        <span><b>宾客</b> 按组确认</span>
+        <span><b>风险</b> 执行</span>
+        <span><b>桌位</b> 大厅/包间</span>
+        <span><b>婚车</b> 10辆</span>
+        <span><b>宾客</b> 分组</span>
       </div>
 
       <div class="ops-actions">
-        <a href="#risks" class="ops-btn ops-btn-primary">查看待处理风险</a>
-        <a href="#visual-layout" class="ops-btn">查看桌位包间图</a>
-        <a href="#cars" class="ops-btn">查看婚车安排</a>
+        <a href="#risks" class="ops-btn ops-btn-primary">看风险</a>
+        <a href="#visual-layout" class="ops-btn">看桌位</a>
+        <a href="#cars" class="ops-btn">看婚车</a>
       </div>
     </div>
 
@@ -113,14 +113,14 @@ function setupInternalHero() {
   quick.className = 'section ops-quick-entry';
   quick.innerHTML = `
     <div class="ops-module-grid">
-      <a class="ops-module" href="#risks"><span>Priority</span><strong>待处理风险</strong><small>优先处理影响当天执行的事项。</small></a>
-      <a class="ops-module" href="#honored-guests"><span>Guest</span><strong>重要嘉宾</strong><small>证婚人、仪式嘉宾和重点沟通事项。</small></a>
-      <a class="ops-module" href="#visual-layout"><span>Layout</span><strong>桌位包间图</strong><small>大厅桌位、7月28日晚餐和7月29日午餐包间。</small></a>
-      <a class="ops-module" href="#cars"><span>Cars</span><strong>婚车安排</strong><small>车辆、乘坐人员、司机车牌、路线与携带物品。</small></a>
-      <a class="ops-module" href="#guests"><span>Guests</span><strong>宾客确认</strong><small>按新郎同学、新娘同学、亲友等分组管理。</small></a>
-      <a class="ops-module" href="#rooms"><span>Hotel</span><strong>住宿安排</strong><small>入住人员、房型、拼房和到店时间。</small></a>
-      <a class="ops-module" href="#meals"><span>Meals</span><strong>晚餐午餐</strong><small>7月28日晚餐、7月29日午餐及包间陪酒安排。</small></a>
-      <a class="ops-module" href="#todo"><span>Todo</span><strong>备婚待办</strong><small>按未完成、进行中、已完成持续更新。</small></a>
+      <a class="ops-module" href="#risks"><span>Risk</span><strong>风险</strong><small>当天执行风险</small></a>
+      <a class="ops-module" href="#honored-guests"><span>Guest</span><strong>嘉宾</strong><small>证婚人与仪式嘉宾</small></a>
+      <a class="ops-module" href="#visual-layout"><span>Layout</span><strong>桌位</strong><small>大厅与包间</small></a>
+      <a class="ops-module" href="#cars"><span>Cars</span><strong>婚车</strong><small>车辆与乘坐</small></a>
+      <a class="ops-module" href="#guests"><span>Guests</span><strong>宾客</strong><small>分组确认</small></a>
+      <a class="ops-module" href="#rooms"><span>Hotel</span><strong>住宿</strong><small>房型与入住</small></a>
+      <a class="ops-module" href="#meals"><span>Meals</span><strong>包间</strong><small>晚餐与午餐</small></a>
+      <a class="ops-module" href="#todo"><span>Todo</span><strong>待办</strong><small>备婚清单</small></a>
     </div>
   `;
   home.insertAdjacentElement('afterend', quick);
@@ -194,8 +194,8 @@ function renderGuests(guests) {
 
   const guestGroups = guests.groups || [];
   const summaryText = guestGroups.map((group) => `${group.name}${group.countLabel && !group.countLabel.includes('待') ? group.countLabel : ''}`).join('；');
-  summary.innerHTML = `<span>当前记录：${esc(summaryText)}。</span><span>${esc(guests.summaryNote || '')}</span>`;
-  policy.innerHTML = `<strong>宾客安排规则：</strong>${esc(guests.policy || '')}`;
+  summary.innerHTML = `<span>宾客：${esc(summaryText)}。</span>`;
+  policy.innerHTML = guests.policy ? `<strong>规则：</strong>${esc(guests.policy)}` : '';
   groups.innerHTML = guestGroups.map((group) => `
     <details class="guest-group" ${group.open ? 'open' : ''}>
       <summary>
@@ -219,13 +219,13 @@ function renderSchedule(schedule) {
   if (!container) return;
   container.innerHTML = (schedule.stages || []).map((stage) => `
     <details class="schedule-stage">
-      <summary class="stage-head"><h3>${esc(stage.stage)}</h3><span class="stage-meta">${(stage.records || []).length} 项流程</span></summary>
+      <summary class="stage-head"><h3>${esc(stage.stage)}</h3><span class="stage-meta">${(stage.records || []).length} 项</span></summary>
       <div class="stage-list">
         ${(stage.records || []).map((record) => `
           <article class="schedule-card">
             <div class="time-pill">${esc(record.time)}</div>
-            <div><h3>${esc(record.title)}</h3><p class="meta">人员：${esc(record.people)}</p>
-              <div class="detail-grid">${detailBox('具体事项', record.task, true)}${detailBox('所需物品', record.items)}${detailBox('注意事项', record.note)}</div>
+            <div><h3>${esc(record.title)}</h3><p class="meta">${esc(record.people)}</p>
+              <div class="detail-grid">${detailBox('事项', record.task, true)}${detailBox('物品', record.items)}${detailBox('备注', record.note)}</div>
             </div>
           </article>
         `).join('')}
