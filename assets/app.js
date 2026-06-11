@@ -253,8 +253,6 @@ function setupOpsCollapsibles() {
   const page = document.body;
   if (!page || !page.classList.contains('ops-page')) return;
 
-  const defaultOpenSections = new Set(['risks', 'honored-guests', 'guests', 'visual-layout']);
-
   document.querySelectorAll('.ops-section').forEach((section) => {
     const head = section.querySelector(':scope > .section-split-head');
     if (!head || section.dataset.collapsibleReady === '1') return;
@@ -270,15 +268,13 @@ function setupOpsCollapsibles() {
     move.forEach((item) => body.appendChild(item));
     section.appendChild(body);
 
-    const shouldOpen = defaultOpenSections.has(section.id);
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'ops-toggle';
-    button.setAttribute('aria-expanded', String(shouldOpen));
-    button.textContent = shouldOpen ? '收起' : '展开';
+    button.setAttribute('aria-expanded', 'true');
+    button.textContent = '收起';
     head.appendChild(button);
 
-    if (!shouldOpen) section.classList.add('is-collapsed');
     section.dataset.collapsibleReady = '1';
 
     button.addEventListener('click', () => {
