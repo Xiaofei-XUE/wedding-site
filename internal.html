@@ -3,31 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>内部备婚看板 · 薛晓飞 & 王艾琳</title>
-  <meta name="description" content="薛晓飞与王艾琳的内部备婚看板。">
+  <title>小飞备婚管理看板</title>
+  <meta name="description" content="薛晓飞与王艾琳的内部备婚管理看板。">
   <meta name="theme-color" content="#8d2f3f">
   <link rel="stylesheet" href="assets/style.css?v=home-layout-20260610">
   <link rel="stylesheet" href="assets/layout.css?v=deep-layout-v2-20260611">
-  <script src="assets/app.js?v=two-layer-20260611" defer></script>
+  <link rel="stylesheet" href="assets/tables.css?v=table-board-20260611">
+  <script src="assets/app.js?v=wechat-copy-20260611" defer></script>
 </head>
-<body>
+<body class="ops-page">
   <header class="topbar">
-    <a class="brand" href="index.html">
+    <a class="brand" href="#home">
       <span class="seal">囍</span>
       <span>
-        <strong>Internal Board</strong>
-        <small>内部备婚看板 · 2026年7月29日</small>
+        <strong>备婚管理看板</strong>
+        <small>薛晓飞 & 王艾琳 · 2026年7月29日</small>
       </span>
     </a>
     <button class="menu" id="menu" aria-label="展开导航"><span></span><span></span><span></span></button>
     <nav class="nav" id="nav">
       <a href="index.html">公开页</a>
-      <a href="#home">首页</a>
-      <a href="#overview">总览</a>
-      <a href="#guide">指南</a>
-      <a href="#schedule">流程</a>
+      <a href="#home">总览</a>
+      <a href="#risks">风险</a>
       <a href="#guests">宾客</a>
+      <a href="#rooms">住宿</a>
+      <a href="#meals">包间</a>
       <a href="#todo">待办</a>
+      <a href="#people">分工</a>
       <a href="#contacts">联系人</a>
     </nav>
   </header>
@@ -35,116 +37,204 @@
   <main>
     <section id="home" class="section hero">
       <div>
-        <p class="kicker">Internal Wedding Board</p>
-        <h1>内部备婚看板</h1>
-        <p class="lead">这里保留宾客、包间、待办、人员分工和服务联系人等执行信息，用于你们自己和婚礼当天协调查看。</p>
-        <div class="event-brief">
-          <div class="brief-item"><b>2026年7月29日 11:58</b><span>午宴开席 · 农历六月十六</span></div>
-          <div class="brief-item"><b>15桌 + 女方单间</b><span>大厅、包间、陪酒安排需要持续核对</span></div>
-          <div class="brief-item"><b>25间房已预留</b><span>住宿名单、拼房和到店时间待完善</span></div>
-          <div class="brief-item"><b>备婚待办持续更新</b><span>服装、婚品、婚车、婚庆、人员分工</span></div>
+        <p class="kicker">Internal Wedding Operations</p>
+        <h1>小飞备婚管理看板</h1>
+        <p class="lead">这个页面以后主要作为内部备婚台账：用表格记录宾客、住宿、包间、待办、人员分工和执行风险。公开邀请页交给婚贝/请柬平台处理即可。</p>
+        <div class="ops-kpi">
+          <article class="kpi-card"><span>婚礼倒计时</span><strong id="d">--</strong><small>天</small></article>
+          <article class="kpi-card"><span>新郎同学</span><strong>15</strong><small>秋水14位，需加位或调剂</small></article>
+          <article class="kpi-card"><span>新娘同学</span><strong>2</strong><small>宋卓然、鲁玫昕</small></article>
+          <article class="kpi-card"><span>女方亲友</span><strong>约30</strong><small>午餐建议3个10位单间</small></article>
+          <article class="kpi-card"><span>住宿预留</span><strong>25</strong><small>房型和入住名单待细化</small></article>
         </div>
-        <div class="actions">
-          <a href="#guests" class="btn primary">查看宾客安排</a>
-          <a href="#todo" class="btn ghost">查看备婚待办</a>
-          <a href="#contacts" class="btn ghost">查看联系人</a>
-        </div>
-      </div>
-      <div class="hero-panel">
-        <article class="photo-carousel" id="photoCarousel">
-          <div class="photo-dots" id="photoDots"></div>
-          <div class="photo-caption"><strong>Internal Board</strong><small>内部备婚信息 · 不建议作为公开邀请页</small></div>
-        </article>
-        <div class="countdown">
-          <div><strong id="d">--</strong><span>Days</span></div>
+        <div class="countdown" style="display:none">
           <div><strong id="h">--</strong><span>Hours</span></div>
           <div><strong id="m">--</strong><span>Minutes</span></div>
           <div><strong id="s">--</strong><span>Seconds</span></div>
         </div>
+        <div class="nav-pills">
+          <a href="#risks">待处理风险</a>
+          <a href="#guests">宾客确认</a>
+          <a href="#rooms">住宿安排</a>
+          <a href="#meals">晚餐/午餐包间</a>
+          <a href="#todo">备婚待办</a>
+          <a href="#schedule">当天流程</a>
+        </div>
       </div>
     </section>
 
-    <section id="overview" class="section overview-section">
-      <div class="overview-grid">
-        <article class="overview-main">
-          <p class="kicker">Internal Overview</p>
-          <h2>内部执行总览</h2>
-          <p>这页按“宾客确认、用餐包间、婚礼流程、备婚待办、联系人”组织。后续新增人员、待办和房间安排都可以继续放这里。</p>
-          <div class="overview-stats">
-            <div class="overview-stat"><strong>15人</strong><span>新郎同学</span></div>
-            <div class="overview-stat"><strong>2人</strong><span>新娘同学</span></div>
-            <div class="overview-stat"><strong>30人</strong><span>女方亲友约数</span></div>
-            <div class="overview-stat"><strong>8类</strong><span>备婚待办</span></div>
-          </div>
-        </article>
-        <aside class="overview-side">
-          <h3>下一步重点</h3>
-          <div class="flow-list">
-            <div class="flow-chip"><b>确认新郎同学席位</b><span>秋水14位 / 当前15人</span></div>
-            <div class="flow-chip"><b>补男方陪酒人员</b><span>俊采 / 星驰 / 青云</span></div>
-            <div class="flow-chip"><b>完善住宿名单</b><span>入住 / 拼房 / 退房</span></div>
-            <div class="flow-chip"><b>复核服装婚品</b><span>婚纱 / 西服 / 婚戒</span></div>
-          </div>
-        </aside>
+    <section id="risks" class="section ops-section">
+      <div class="section-split-head">
+        <div class="heading"><p class="kicker">Priority</p><h2>当前待处理风险</h2></div>
+        <p class="section-note">这个表以后作为首页最重要的“待办提醒”。每次新增事项，优先判断是否属于风险项。</p>
       </div>
-      <div class="module-map">
-        <a class="module-tile" href="#guests"><span>People</span><strong>宾客与座位</strong><small>真实名单、晚餐包间、午餐单间和陪酒安排。</small></a>
-        <a class="module-tile" href="#todo"><span>Checklist</span><strong>备婚待办</strong><small>服装、婚品、酒店、婚车、婚庆和人员分工。</small></a>
-        <a class="module-tile" href="#schedule"><span>Timeline</span><strong>当天流程</strong><small>接亲、酒店准备、仪式、敬酒和收尾。</small></a>
-        <a class="module-tile" href="#contacts"><span>Contacts</span><strong>服务联系人</strong><small>婚庆、酒店、主持、化妆、摄影摄像等。</small></a>
+      <div class="table-panel">
+        <div class="table-title"><h3>风险清单</h3><span>建议优先处理“高风险”和“影响当天执行”的事项</span></div>
+        <table class="work-table">
+          <thead><tr><th>事项</th><th>状态</th><th>影响</th><th>下一步</th><th>负责人</th></tr></thead>
+          <tbody>
+            <tr><td>新郎同学人数超出秋水包间</td><td><span class="tag risk">需处理</span></td><td>秋水14位，当前15人</td><td>确认加位，或调剂1人到胜友/长天</td><td>新郎</td></tr>
+            <tr><td>男方陪女方单间人员未定</td><td><span class="tag risk">待补充</span></td><td>影响7月29午餐女方亲友接待</td><td>至少确认3名男方亲友，对应俊采/星驰/青云</td><td>男方家庭</td></tr>
+            <tr><td>住宿人员名单未细化</td><td><span class="tag progress">进行中</span></td><td>影响房型、拼房、入住办理</td><td>补充入住人、房型、到店时间、是否拼房</td><td>新人/酒店</td></tr>
+            <tr><td>婚纱、西服、婚戒状态未闭环</td><td><span class="tag wait">待确认</span></td><td>影响拍摄、仪式和当天形象</td><td>逐项确认是否已购买/试穿/取回/备用</td><td>新人</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
-    <section id="guide" class="section section-compact">
-      <div class="heading center">
-        <p class="kicker">Logistics</p>
-        <h2>到店与包间安排</h2>
-        <p>内部执行时重点看包间容量、入口位置、女方亲友单间和男方陪酒安排。</p>
+    <section id="guests" class="section ops-section">
+      <div class="section-split-head">
+        <div class="heading"><p class="kicker">Guests</p><h2>宾客确认与座位</h2></div>
+        <p class="section-note">先用汇总表看风险，再用下方详细名单继续维护每个人的状态。</p>
       </div>
-      <div class="guide-grid">
-        <article class="guide-card feature"><span>婚礼地点</span><h3>沂南天龙蓝海国际大饭店</h3><p>地址：临沂市沂南县人民路与朝阳路交汇处。</p><div class="map-actions"><a class="map-link" href="https://uri.amap.com/search?keyword=%E6%B2%82%E5%8D%97%E5%A4%A9%E9%BE%99%E8%93%9D%E6%B5%B7%E5%9B%BD%E9%99%85%E5%A4%A7%E9%A5%AD%E5%BA%97&city=%E4%B8%B4%E6%B2%82&callnative=1" target="_blank" rel="noopener">高德地图导航</a><a class="map-link" href="https://map.baidu.com/search/%E6%B2%82%E5%8D%97%E5%A4%A9%E9%BE%99%E8%93%9D%E6%B5%B7%E5%9B%BD%E9%99%85%E5%A4%A7%E9%A5%AD%E5%BA%97" target="_blank" rel="noopener">百度地图导航</a></div></article>
-        <article class="guide-card"><span>婚礼大厅</span><h3>15桌 · 每桌10人</h3><p>婚礼大厅预计安排约150位来宾，座位以后续确认名单为准。</p></article>
-        <article class="guide-card"><span>住宿安排</span><h3>7月28日 - 7月29日</h3><p>共预留25间房：大床房6间、双床房15间、豪华套房1间、行政套房1间、观景房2间。</p></article>
-        <article class="meal-plan"><span>7月28日晚餐 · 单间安排</span><h3>女方亲友 + 新郎/新娘同学集中用餐</h3><p>由客房大厅进入钟鼎楼二楼，入口在国旗对面。</p><div class="meal-rooms"><div class="meal-room"><strong>高朋 · 30位</strong><small>优先安排女方亲友</small></div><div class="meal-room"><strong>秋水 · 14位</strong><small>优先安排新郎同学<br>当前15人，需加位/调剂1人</small></div><div class="meal-room"><strong>胜友 · 20位</strong><small>预留新娘同学/双方同学<br>已添加：宋卓然、鲁玫昕</small></div><div class="meal-room"><strong>长天 · 10位</strong><small>机动备用</small></div></div></article>
-        <article class="meal-plan"><span>7月29日午餐 · 女方亲友单间 + 男方陪酒</span><h3>女方亲友单间用餐，男方安排亲友到桌陪酒</h3><p>女方亲友预计约30人，建议优先使用二楼3间10位包间。每个女方亲友包间建议安排1名男方亲友陪酒/陪桌。</p><div class="meal-rooms"><div class="meal-room"><strong>俊采 · 10位</strong><small>女方亲友<br>男方陪酒：1人待定</small></div><div class="meal-room"><strong>星驰 · 10位</strong><small>女方亲友<br>男方陪酒：1人待定</small></div><div class="meal-room"><strong>青云 · 10位</strong><small>女方亲友<br>男方陪酒：1人待定</small></div><div class="meal-room"><strong>机动备用</strong><small>钟鸣14位、鼎食12位、良辰10位</small></div></div></article>
+      <div class="table-panel">
+        <div class="table-title"><h3>宾客分组汇总</h3><span>后续建议增加：是否到场、是否携伴、是否住宿、7月28晚餐、7月29午餐</span></div>
+        <table class="work-table">
+          <thead><tr><th>分组</th><th>当前人数</th><th>7月28日晚餐</th><th>7月29午餐</th><th>风险/备注</th></tr></thead>
+          <tbody>
+            <tr><td>女方亲友</td><td>约30人</td><td>高朋 · 30位</td><td>俊采/星驰/青云</td><td><span class="tag risk">需男方陪酒</span></td></tr>
+            <tr><td>新郎同学</td><td>15人</td><td>秋水 · 14位</td><td>婚礼大厅/同学桌</td><td><span class="tag risk">超1人</span></td></tr>
+            <tr><td>新娘同学</td><td>2人</td><td>胜友 · 20位预留</td><td>待定</td><td><span class="tag progress">继续确认</span></td></tr>
+            <tr><td>男方陪酒人员</td><td>待补充</td><td>—</td><td>每个女方单间1人</td><td><span class="tag risk">至少3人</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-panel">
+        <div class="table-title"><h3>详细宾客名单</h3><span>当前仍从 data/guests.json 读取；后续可以继续表格化</span></div>
+        <div class="guest-summary" id="guestSummary"></div>
+        <div class="guest-policy" id="guestPolicy"></div>
+        <div class="guest-groups" id="guestGroups"></div>
       </div>
     </section>
 
-    <section id="schedule" class="section section-compact">
-      <div class="section-split-head"><div class="heading"><p class="kicker">Wedding Schedule</p><h2>婚礼当天详细流程</h2></div><p class="section-note">点击阶段展开，查看时间、人员、具体事项、物品和注意事项。</p></div>
-      <div class="schedule-overview"><div class="flow-chip"><b>05:30–08:58</b><span>起床、化妆、婚车装饰、接亲与离开发嫁地点。</span></div><div class="flow-chip"><b>09:00–11:10</b><span>酒店先行准备、新人到达、First Look 或迎宾。</span></div><div class="flow-chip"><b>11:15–11:55</b><span>伴郎伴娘入场、新人入场、仪式、致辞和捧花。</span></div><div class="flow-chip"><b>11:58以后</b><span>午宴开席、换敬酒服、新人敬酒、送客和收尾。</span></div></div>
+    <section id="rooms" class="section ops-section">
+      <div class="section-split-head">
+        <div class="heading"><p class="kicker">Rooms</p><h2>住宿安排表</h2></div>
+        <p class="section-note">现在先记录房型预留。下一步应补充具体入住人、入住时间、是否拼房、是否已确认。</p>
+      </div>
+      <div class="table-panel">
+        <div class="table-title"><h3>房型预留</h3><span>7月28日入住，7月29日退房</span></div>
+        <table class="work-table">
+          <thead><tr><th>房型</th><th>数量</th><th>用途</th><th>当前状态</th><th>下一步</th></tr></thead>
+          <tbody>
+            <tr><td>大床房</td><td>6间</td><td>亲友住宿</td><td><span class="tag progress">已预留</span></td><td>补入住人和到店时间</td></tr>
+            <tr><td>双床房</td><td>15间</td><td>亲友住宿/拼房</td><td><span class="tag progress">已预留</span></td><td>确认拼房需求</td></tr>
+            <tr><td>豪华套房</td><td>1间</td><td>发嫁房</td><td><span class="tag done">用途明确</span></td><td>确认布置和化妆动线</td></tr>
+            <tr><td>行政套房</td><td>1间</td><td>机动/重要亲友</td><td><span class="tag wait">待分配</span></td><td>确认入住对象</td></tr>
+            <tr><td>观景房</td><td>2间</td><td>机动/亲友住宿</td><td><span class="tag wait">待分配</span></td><td>确认入住对象</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="meals" class="section ops-section">
+      <div class="section-split-head">
+        <div class="heading"><p class="kicker">Meals</p><h2>晚餐/午餐包间安排</h2></div>
+        <p class="section-note">包间是现在最适合用表格管理的模块。后续每个包间可以继续加“桌长/联系人/是否确认”。</p>
+      </div>
+      <div class="table-grid-2">
+        <div class="table-panel">
+          <div class="table-title"><h3>7月28日晚餐</h3><span>钟鼎楼二楼，入口在国旗对面</span></div>
+          <table class="work-table">
+            <thead><tr><th>包间</th><th>容量</th><th>拟安排</th><th>状态</th></tr></thead>
+            <tbody>
+              <tr><td>高朋</td><td>30位</td><td>女方亲友</td><td><span class="tag done">优先确定</span></td></tr>
+              <tr><td>秋水</td><td>14位</td><td>新郎同学</td><td><span class="tag risk">当前15人</span></td></tr>
+              <tr><td>胜友</td><td>20位</td><td>新娘同学/双方同学</td><td><span class="tag progress">预留</span></td></tr>
+              <tr><td>长天</td><td>10位</td><td>机动备用</td><td><span class="tag wait">备用</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-panel">
+          <div class="table-title"><h3>7月29日午餐</h3><span>女方亲友单间 + 男方陪酒</span></div>
+          <table class="work-table">
+            <thead><tr><th>包间</th><th>容量</th><th>拟安排</th><th>陪酒人员</th></tr></thead>
+            <tbody>
+              <tr><td>俊采</td><td>10位</td><td>女方亲友</td><td><span class="tag risk">待定</span></td></tr>
+              <tr><td>星驰</td><td>10位</td><td>女方亲友</td><td><span class="tag risk">待定</span></td></tr>
+              <tr><td>青云</td><td>10位</td><td>女方亲友</td><td><span class="tag risk">待定</span></td></tr>
+              <tr><td>钟鸣/鼎食/良辰</td><td>14/12/10位</td><td>机动备用</td><td><span class="tag wait">视人数调整</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="todo" class="section ops-section">
+      <div class="section-split-head">
+        <div class="heading"><p class="kicker">Checklist</p><h2>备婚待办总表</h2></div>
+        <p class="section-note">从“卡片”改成“表格”，便于后续继续加负责人、截止时间、状态和备注。</p>
+      </div>
+      <div class="table-panel">
+        <div class="table-title"><h3>待办事项</h3><span>后续每次新增事项，都建议按这个格式记录</span></div>
+        <table class="work-table">
+          <thead><tr><th>事项</th><th>状态</th><th>负责人</th><th>下一步</th><th>优先级</th></tr></thead>
+          <tbody>
+            <tr><td>婚纱礼服</td><td><span class="tag progress">进行中</span></td><td>新娘</td><td>确认婚纱、敬酒服、晨袍、婚鞋、头纱和饰品</td><td>高</td></tr>
+            <tr><td>新郎西服</td><td><span class="tag wait">待确认</span></td><td>新郎</td><td>确认西服、衬衫、领带/领结、皮鞋、腰带和备用衬衫</td><td>高</td></tr>
+            <tr><td>婚戒首饰</td><td><span class="tag wait">待确认</span></td><td>新人</td><td>确认婚戒、戒指盒、誓言卡及仪式当天保管人</td><td>高</td></tr>
+            <tr><td>喜糖喜酒伴手礼</td><td><span class="tag wait">待采购</span></td><td>双方家庭</td><td>确认喜糖、喜酒、伴手礼、签到用品、红包和备用袋</td><td>中</td></tr>
+            <tr><td>酒店住宿</td><td><span class="tag progress">已预留</span></td><td>新人/酒店</td><td>完善入住名单、到店时间、拼房需求和退房提醒</td><td>高</td></tr>
+            <tr><td>婚车安排</td><td><span class="tag progress">已规划</span></td><td>新郎/婚庆</td><td>确认婚车数量、路线、装饰时间、司机和集合时间</td><td>中</td></tr>
+            <tr><td>婚庆摄影摄像</td><td><span class="tag progress">进行中</span></td><td>新人/婚庆</td><td>确认主持、化妆、摄影、摄像、布置、VCR、音乐和拍摄清单</td><td>高</td></tr>
+            <tr><td>人员分工</td><td><span class="tag risk">待补充</span></td><td>新人</td><td>补充接待、签到、红包保管、男方陪酒、房间协调和应急联系人</td><td>高</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="people" class="section ops-section">
+      <div class="section-split-head">
+        <div class="heading"><p class="kicker">People</p><h2>人员分工表</h2></div>
+        <p class="section-note">伴郎伴娘已经明确；接待、签到、红包、住宿、陪酒这些还需要继续补。</p>
+      </div>
+      <div class="table-panel">
+        <div class="table-title"><h3>人员与职责</h3><span>建议后续增加手机号和到场时间，但公开仓库不建议写太敏感</span></div>
+        <table class="work-table">
+          <thead><tr><th>角色</th><th>人员</th><th>主要职责</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>伴郎团</td><td>赵大玮、亢一舟</td><td>接亲红包、婚车协助、现场跑腿、敬酒协助、临时事务</td><td><span class="tag done">已确认</span></td></tr>
+            <tr><td>伴娘团</td><td>陶云、宋卓然</td><td>堵门、婚鞋、急救包、补妆提醒、新娘随身物品</td><td><span class="tag done">已确认</span></td></tr>
+            <tr><td>男方陪酒</td><td>待补充</td><td>7月29午餐女方单间陪酒、介绍、倒酒、敬酒衔接</td><td><span class="tag risk">至少3人</span></td></tr>
+            <tr><td>住宿协调</td><td>待指定</td><td>房间入住、退房提醒、房卡、临时住宿问题</td><td><span class="tag wait">待指定</span></td></tr>
+            <tr><td>签到/红包保管</td><td>待指定</td><td>签到、红包收纳、签到册和物品交接</td><td><span class="tag wait">待指定</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="schedule" class="section ops-section">
+      <div class="section-split-head">
+        <div class="heading"><p class="kicker">Schedule</p><h2>婚礼当天详细流程</h2></div>
+        <p class="section-note">这个模块仍然保留折叠式细节，适合婚礼前最后核对。</p>
+      </div>
       <div id="scheduleStages" class="schedule-stages"></div>
     </section>
 
-    <section id="guests" class="section section-compact">
-      <div class="section-split-head"><div class="heading"><p class="kicker">Guest List</p><h2>宾客与座位</h2></div><p class="section-note">真实名单、人数、晚餐包间、午餐单间和陪酒安排集中在这里。</p></div>
-      <div class="guest-toolbar"><div class="overview-stat"><strong>女方亲友</strong><span>约30人 · 午餐单间 · 陪酒待定</span></div><div class="overview-stat"><strong>新郎同学</strong><span>15人 · 秋水14位 · 需加位或调剂</span></div><div class="overview-stat"><strong>新娘同学</strong><span>2人 · 胜友20位预留</span></div></div>
-      <div class="guest-summary" id="guestSummary"></div>
-      <div class="guest-policy" id="guestPolicy"></div>
-      <div class="guest-groups" id="guestGroups"></div>
-    </section>
-
-    <section id="party" class="section section-compact">
-      <div class="heading center"><p class="kicker">Wedding Party</p><h2>伴郎伴娘团</h2><p>伴郎伴娘名单和当天分工。</p></div>
-      <div class="contact-grid two-card-grid"><article class="contact-card primary"><span>伴郎团 · 2人</span><strong>赵大玮、亢一舟</strong><p>负责接亲出发、接亲红包、婚车协助、现场跑腿、敬酒协助和临时事务处理。</p></article><article class="contact-card primary"><span>伴娘团 · 2人</span><strong>陶云、宋卓然</strong><p>负责新娘晨袍/婚纱整理、堵门环节、婚鞋、急救包、补妆提醒和新娘随身物品。</p></article></div>
-    </section>
-
-    <section id="todo" class="section section-compact">
-      <div class="section-split-head"><div class="heading"><p class="kicker">Wedding Checklist</p><h2>备婚待办</h2></div><p class="section-note">按优先级分成三列，方便每次打开就知道先处理什么。</p></div>
-      <div class="todo-board"><div class="todo-column"><h3>优先处理</h3><p class="todo-column-desc">影响拍摄、仪式和当天执行，建议先推进。</p><div class="todo-stack"><article class="todo-card wait"><span>进行中</span><h4>婚纱礼服</h4><p>负责人：新娘<br>确认婚纱、敬酒服、晨袍、婚鞋、头纱和饰品是否全部到位。</p></article><article class="todo-card wait"><span>待确认</span><h4>新郎西服</h4><p>负责人：新郎<br>确认西服、衬衫、领带/领结、皮鞋、腰带和备用衬衫。</p></article><article class="todo-card wait"><span>待确认</span><h4>婚戒首饰</h4><p>负责人：新人<br>确认婚戒、戒指盒、誓言卡及仪式当天保管人。</p></article></div></div><div class="todo-column"><h3>近期推进</h3><p class="todo-column-desc">影响宾客体验和现场物料，适合集中采购与确认。</p><div class="todo-stack"><article class="todo-card todo"><span>待采购</span><h4>喜糖喜酒伴手礼</h4><p>负责人：双方家庭<br>确认喜糖、喜酒、伴手礼、签到用品、红包和备用袋。</p></article><article class="todo-card done"><span>已预留</span><h4>酒店住宿</h4><p>负责人：新人/酒店<br>继续完善入住名单、到店时间、拼房需求和退房提醒。</p></article><article class="todo-card done"><span>已规划</span><h4>婚车安排</h4><p>负责人：新郎/婚庆<br>确认婚车数量、路线、装饰时间、司机联系方式和集合时间。</p></article></div></div><div class="todo-column"><h3>执行核对</h3><p class="todo-column-desc">越临近婚礼越重要，适合婚礼前两周集中复核。</p><div class="todo-stack"><article class="todo-card wait"><span>进行中</span><h4>婚庆摄影摄像</h4><p>负责人：新人/婚庆<br>确认主持、化妆、摄影、摄像、布置、VCR、音乐和拍摄清单。</p></article><article class="todo-card todo"><span>待补充</span><h4>人员分工</h4><p>负责人：新人<br>补充接待、签到、红包保管、男方陪酒、房间协调和应急联系人。</p></article><article class="todo-card todo"><span>待确认</span><h4>宾客反馈</h4><p>负责人：新人<br>确认到场人数、7月28日晚餐、住宿需求和是否携伴。</p></article></div></div></div>
-    </section>
-
-    <section id="internal" class="section section-compact">
-      <div class="heading center"><p class="kicker">Internal Dashboard</p><h2>内部筹备区</h2><p>用于管理婚礼当天真正影响执行的事项。</p></div>
-      <div class="internal-grid"><article class="internal-card important"><span>照片模块</span><h3>首页婚纱照轮播</h3><p>照片列表已拆到 bundle/a.json，后续添加图片只改配置文件。</p></article><article class="internal-card important"><span>新增规划</span><h3>男方亲友陪酒</h3><p>7月29午餐女方亲友单间，每间安排1名男方亲友陪酒/陪桌，名单待定。</p></article><article class="internal-card important"><span>已规划</span><h3>7月28晚餐单间</h3><p>高朋安排女方亲友；秋水安排新郎同学；胜友预留新娘同学；长天机动。</p></article><article class="internal-card"><span>待补充</span><h3>男方陪酒人员名单</h3><p>补充3名以上男方亲友，确认分别陪哪一个女方包间。</p></article><article class="internal-card"><span>已补充2人</span><h3>新娘同学名单</h3><p>已添加：宋卓然、鲁玫昕。后续继续在 data/guests.json 中补充是否携伴、是否确认到场和7月28晚餐包间。</p></article><article class="internal-card"><span>需确认</span><h3>新郎同学席位</h3><p>新郎同学已更新为15人；秋水为14位，需确认是否加位或调剂1人至其他包间。</p></article></div>
-    </section>
-
-    <section id="contacts" class="section section-compact">
-      <div class="heading row"><div><p class="kicker">Contacts</p><h2>婚礼服务与联系人</h2></div></div>
-      <div class="contact-grid"><article class="contact-card primary"><span>01 · 整体婚礼服务</span><strong>尚唯婚礼 · 薛亮</strong><p><a href="tel:13869950728">13869950728</a></p></article><article class="contact-card primary"><span>02 · 酒店销售经理</span><strong>王宏英</strong><p><a href="tel:19862906969">19862906969</a></p></article><article class="contact-card primary"><span>03 · 婚礼管家</span><strong>晓娜</strong><p>婚礼当天现场执行协调、流程提醒和人员衔接。</p></article><article class="contact-card"><span>04 · 主持人</span><strong>建昌</strong><p>负责婚礼仪式主持与现场流程衔接。</p></article><article class="contact-card"><span>05 · 化妆师</span><strong>一月</strong><p>负责新娘妆造及婚礼当天相关妆发安排。</p></article><article class="contact-card"><span>06 · 录像</span><strong>临沂创影</strong><p>负责婚礼当天视频记录与影像素材拍摄。</p></article><article class="contact-card"><span>07 · 跟拍</span><strong>李强</strong><p>负责婚礼当天照片跟拍与重要环节记录。</p></article><article class="contact-card"><span>08 · 新车装饰 / 花艺</span><strong>手捧花 · 胸花</strong><p>包含新车装饰、手捧花、胸花等婚礼当天花艺物料。</p></article></div>
+    <section id="contacts" class="section ops-section">
+      <div class="section-split-head">
+        <div class="heading"><p class="kicker">Contacts</p><h2>婚礼服务联系人</h2></div>
+        <p class="section-note">内部看板保留联系人。后续如仓库继续公开，手机号类信息建议迁移到私有表格。</p>
+      </div>
+      <div class="table-panel">
+        <div class="table-title"><h3>服务商与现场联系人</h3><span>婚礼当天执行协调使用</span></div>
+        <table class="work-table">
+          <thead><tr><th>类别</th><th>联系人</th><th>电话/说明</th><th>职责</th></tr></thead>
+          <tbody>
+            <tr><td>整体婚礼服务</td><td>尚唯婚礼 · 薛亮</td><td><a href="tel:13869950728">13869950728</a></td><td>整体婚礼服务协调</td></tr>
+            <tr><td>酒店销售经理</td><td>王宏英</td><td><a href="tel:19862906969">19862906969</a></td><td>酒店、宴会、房间协调</td></tr>
+            <tr><td>婚礼管家</td><td>晓娜</td><td>现场执行协调</td><td>流程提醒、人员衔接</td></tr>
+            <tr><td>主持人</td><td>建昌</td><td>—</td><td>仪式主持与现场衔接</td></tr>
+            <tr><td>化妆师</td><td>一月</td><td>—</td><td>新娘妆造和当天妆发</td></tr>
+            <tr><td>录像</td><td>临沂创影</td><td>—</td><td>视频记录</td></tr>
+            <tr><td>跟拍</td><td>李强</td><td>—</td><td>照片跟拍</td></tr>
+            <tr><td>新车装饰/花艺</td><td>手捧花 · 胸花</td><td>—</td><td>婚车装饰、花艺物料</td></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
   </main>
 
-  <footer class="footer"><div><strong>内部备婚看板</strong><span> · 薛晓飞 & 王艾琳</span></div><a href="#home">回到顶部 ↑</a></footer>
+  <footer class="footer"><div><strong>小飞备婚管理看板</strong><span> · 内部使用</span></div><a href="#home">回到顶部 ↑</a></footer>
 </body>
 </html>
