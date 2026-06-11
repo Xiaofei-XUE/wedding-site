@@ -1,18 +1,22 @@
 /* Internal hero isolated stylesheet. Do not mix with table styles. */
 .ops-page .topbar .nav a[href="index.html"]{display:none!important}
 
+/* Main hero container */
 .ops-page .internal-copied-hero{
   position:relative!important;
   display:grid!important;
-  grid-template-columns:minmax(560px,1fr) minmax(340px,420px)!important;
-  gap:32px!important;
+  grid-template-columns:minmax(0,1fr) 420px!important;
+  column-gap:34px!important;
   align-items:center!important;
   margin-top:24px!important;
-  padding:50px 44px 40px!important;
+  padding:52px 44px 40px!important;
   border:1px solid rgba(200,155,84,.34)!important;
   border-radius:46px!important;
   overflow:hidden!important;
-  background:linear-gradient(118deg,rgba(255,252,247,.90),rgba(255,244,235,.72) 42%,rgba(141,47,63,.09)),radial-gradient(circle at 8% 12%,rgba(141,47,63,.15),transparent 20rem),radial-gradient(circle at 86% 2%,rgba(200,155,84,.24),transparent 22rem)!important;
+  background:
+    linear-gradient(118deg,rgba(255,252,247,.92),rgba(255,244,235,.74) 42%,rgba(141,47,63,.09)),
+    radial-gradient(circle at 8% 12%,rgba(141,47,63,.15),transparent 20rem),
+    radial-gradient(circle at 86% 2%,rgba(200,155,84,.24),transparent 22rem)!important;
   box-shadow:0 34px 110px rgba(95,25,40,.16)!important;
   isolation:isolate!important;
   box-sizing:border-box!important;
@@ -22,61 +26,199 @@
   position:absolute!important;
   inset:18px!important;
   z-index:0!important;
-  border:1px solid rgba(200,155,84,.25)!important;
+  border:1px solid rgba(200,155,84,.24)!important;
   border-radius:34px!important;
   pointer-events:none!important;
 }
 .ops-page .internal-copied-hero:after{
   content:"囍"!important;
   position:absolute!important;
-  right:32%!important;
-  bottom:-90px!important;
+  right:30%!important;
+  bottom:-92px!important;
   z-index:0!important;
-  color:rgba(141,47,63,.05)!important;
+  color:rgba(141,47,63,.045)!important;
   font-family:"STSong","Songti SC","SimSun",serif!important;
   font-size:240px!important;
   font-weight:900!important;
   line-height:1!important;
   pointer-events:none!important;
 }
-.ops-page .internal-copied-hero>div:first-of-type,
-.ops-page .internal-copied-hero .hero-panel{
+
+/* Explicit grid columns */
+.ops-page .internal-copied-hero .internal-hero-copy{
+  grid-column:1!important;
   position:relative!important;
   z-index:2!important;
   min-width:0!important;
+  max-width:760px!important;
 }
-.ops-page .internal-copied-hero .hero-panel{
+.ops-page .internal-copied-hero .internal-hero-media{
+  grid-column:2!important;
+  position:relative!important;
+  z-index:2!important;
   display:grid!important;
-  top:auto!important;
+  grid-template-rows:auto auto!important;
   gap:14px!important;
   width:100%!important;
   max-width:420px!important;
+  min-width:0!important;
   justify-self:end!important;
+  align-self:center!important;
 }
-.ops-page .internal-copied-hero .wedding-photo-frame{display:grid!important;position:relative!important}
 
-.ops-page .internal-copied-hero .hero-ornaments{position:absolute!important;inset:0!important;z-index:1!important;pointer-events:none!important}
-.ops-page .internal-copied-hero .hero-ornaments span{position:absolute!important;display:grid!important;place-items:center!important;width:52px!important;height:52px!important;border:1px solid rgba(200,155,84,.32)!important;border-radius:50%!important;color:rgba(141,47,63,.36)!important;background:rgba(255,249,241,.58)!important;font-family:"STSong","Songti SC","SimSun",serif!important;font-size:22px!important;font-weight:900!important;box-shadow:0 12px 34px rgba(95,25,40,.08)!important}
+/* Background ornaments */
+.ops-page .internal-copied-hero .hero-ornaments{
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  pointer-events:none!important;
+}
+.ops-page .internal-copied-hero .hero-ornaments span{
+  position:absolute!important;
+  display:grid!important;
+  place-items:center!important;
+  width:52px!important;
+  height:52px!important;
+  border:1px solid rgba(200,155,84,.32)!important;
+  border-radius:50%!important;
+  color:rgba(141,47,63,.36)!important;
+  background:rgba(255,249,241,.58)!important;
+  font-family:"STSong","Songti SC","SimSun",serif!important;
+  font-size:22px!important;
+  font-weight:900!important;
+  box-shadow:0 12px 34px rgba(95,25,40,.08)!important;
+}
 .ops-page .internal-copied-hero .hero-ornaments span:nth-child(1){left:26px!important;top:24px!important}
 .ops-page .internal-copied-hero .hero-ornaments span:nth-child(2){right:31%!important;top:34px!important;color:rgba(200,155,84,.58)!important}
 .ops-page .internal-copied-hero .hero-ornaments span:nth-child(3){left:42%!important;bottom:28px!important;color:rgba(141,47,63,.30)!important}
 
-.ops-page .internal-copied-hero .kicker{display:inline-flex!important;align-items:center!important;gap:8px!important;width:max-content!important;max-width:100%!important;margin:0 0 16px!important;padding:7px 12px!important;border:1px solid rgba(200,155,84,.28)!important;border-radius:999px!important;background:rgba(255,255,255,.62)!important;color:#8d2f3f!important;font-size:12px!important;font-weight:900!important;letter-spacing:.14em!important;text-transform:uppercase!important;box-shadow:0 12px 30px rgba(95,25,40,.07)!important}
-.ops-page .internal-copied-hero .kicker:before{content:"囍"!important;display:inline-grid!important;place-items:center!important;width:22px!important;height:22px!important;border-radius:50%!important;background:#8d2f3f!important;color:#fff!important;font-family:"STSong","Songti SC","SimSun",serif!important;font-size:13px!important;letter-spacing:0!important}
-
-.ops-page .internal-copied-hero .hero-title-card{position:relative!important;display:inline-block!important;max-width:100%!important;padding:18px 22px 18px 24px!important;border:1px solid rgba(200,155,84,.34)!important;border-radius:30px!important;background:linear-gradient(135deg,rgba(255,253,248,.84),rgba(255,244,235,.58))!important;box-shadow:0 20px 56px rgba(95,25,40,.10)!important;backdrop-filter:blur(16px)!important}
-.ops-page .internal-copied-hero .title-seal{position:absolute!important;right:18px!important;top:-20px!important;display:grid!important;place-items:center!important;width:48px!important;height:48px!important;border-radius:16px!important;color:#fff!important;background:linear-gradient(135deg,#b83f50,#651a29)!important;box-shadow:0 16px 34px rgba(141,47,63,.24)!important;transform:rotate(8deg)!important;font-weight:900!important}
-.ops-page .internal-copied-hero .hero-title-card h1{display:block!important;margin:0!important;padding:0!important;border:0!important;background:none!important;box-shadow:none!important;color:#2f2321!important;font-size:clamp(46px,5.6vw,78px)!important;line-height:1.02!important;letter-spacing:-.07em!important;writing-mode:horizontal-tb!important;white-space:nowrap!important;word-break:keep-all!important;overflow-wrap:normal!important;text-orientation:mixed!important}
+/* Left copy */
+.ops-page .internal-copied-hero .kicker{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  width:max-content!important;
+  max-width:100%!important;
+  margin:0 0 16px!important;
+  padding:7px 12px!important;
+  border:1px solid rgba(200,155,84,.28)!important;
+  border-radius:999px!important;
+  background:rgba(255,255,255,.62)!important;
+  color:#8d2f3f!important;
+  font-size:12px!important;
+  font-weight:900!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+  box-shadow:0 12px 30px rgba(95,25,40,.07)!important;
+}
+.ops-page .internal-copied-hero .kicker:before{
+  content:"囍"!important;
+  display:inline-grid!important;
+  place-items:center!important;
+  width:22px!important;
+  height:22px!important;
+  border-radius:50%!important;
+  background:#8d2f3f!important;
+  color:#fff!important;
+  font-family:"STSong","Songti SC","SimSun",serif!important;
+  font-size:13px!important;
+  letter-spacing:0!important;
+}
+.ops-page .internal-copied-hero .hero-title-card{
+  position:relative!important;
+  display:inline-block!important;
+  max-width:100%!important;
+  padding:18px 22px 18px 24px!important;
+  border:1px solid rgba(200,155,84,.34)!important;
+  border-radius:30px!important;
+  background:linear-gradient(135deg,rgba(255,253,248,.84),rgba(255,244,235,.58))!important;
+  box-shadow:0 20px 56px rgba(95,25,40,.10)!important;
+  backdrop-filter:blur(16px)!important;
+}
+.ops-page .internal-copied-hero .title-seal{
+  position:absolute!important;
+  right:18px!important;
+  top:-20px!important;
+  display:grid!important;
+  place-items:center!important;
+  width:48px!important;
+  height:48px!important;
+  border-radius:16px!important;
+  color:#fff!important;
+  background:linear-gradient(135deg,#b83f50,#651a29)!important;
+  box-shadow:0 16px 34px rgba(141,47,63,.24)!important;
+  transform:rotate(8deg)!important;
+  font-weight:900!important;
+}
+.ops-page .internal-copied-hero .hero-title-card h1{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:none!important;
+  box-shadow:none!important;
+  color:#2f2321!important;
+  font-size:clamp(46px,5.6vw,78px)!important;
+  line-height:1.02!important;
+  letter-spacing:-.07em!important;
+  writing-mode:horizontal-tb!important;
+  white-space:nowrap!important;
+  word-break:keep-all!important;
+  overflow-wrap:normal!important;
+  text-orientation:mixed!important;
+}
 .ops-page .internal-copied-hero .hero-title-card h1:before{display:none!important}
 .ops-page .internal-copied-hero .amp{color:#8d2f3f!important}
-.ops-page .internal-copied-hero .hero-subline{margin:8px 0 0!important;color:#c89b54!important;font-weight:850!important;letter-spacing:.16em!important;text-transform:uppercase!important;font-size:12px!important}
-
-.ops-page .internal-copied-hero .lead{max-width:720px!important;margin:18px 0 0!important;color:#765f59!important;font-size:clamp(15px,1.35vw,18px)!important;line-height:1.82!important}
-.ops-page .internal-copied-hero .wedding-status-row{display:flex!important;flex-wrap:wrap!important;gap:9px!important;margin-top:18px!important;max-width:760px!important}
-.ops-page .internal-copied-hero .wedding-status-row span{display:inline-flex!important;align-items:center!important;gap:7px!important;min-height:36px!important;padding:8px 12px!important;border:1px solid rgba(200,155,84,.28)!important;border-radius:999px!important;background:rgba(255,255,255,.64)!important;color:#7b625c!important;font-size:13px!important;font-weight:780!important}
+.ops-page .internal-copied-hero .hero-subline{
+  margin:8px 0 0!important;
+  color:#c89b54!important;
+  font-weight:850!important;
+  letter-spacing:.16em!important;
+  text-transform:uppercase!important;
+  font-size:12px!important;
+}
+.ops-page .internal-copied-hero .lead{
+  max-width:720px!important;
+  margin:18px 0 0!important;
+  color:#765f59!important;
+  font-size:clamp(15px,1.35vw,18px)!important;
+  line-height:1.82!important;
+}
+.ops-page .internal-copied-hero .wedding-status-row{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:9px!important;
+  margin-top:18px!important;
+  max-width:760px!important;
+}
+.ops-page .internal-copied-hero .wedding-status-row span{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:7px!important;
+  min-height:36px!important;
+  padding:8px 12px!important;
+  border:1px solid rgba(200,155,84,.28)!important;
+  border-radius:999px!important;
+  background:rgba(255,255,255,.64)!important;
+  color:#7b625c!important;
+  font-size:13px!important;
+  font-weight:780!important;
+}
 .ops-page .internal-copied-hero .wedding-status-row b{color:#8d2f3f!important;font-weight:900!important}
-.ops-page .internal-copied-hero .event-brief{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;max-width:760px!important;margin-top:20px!important}
-.ops-page .internal-copied-hero .brief-item{padding:15px 16px!important;border:1px solid rgba(118,70,64,.12)!important;border-radius:20px!important;background:rgba(255,252,247,.68)!important;box-shadow:0 18px 48px rgba(95,25,40,.07)!important}
+.ops-page .internal-copied-hero .event-brief{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:12px!important;
+  max-width:760px!important;
+  margin-top:20px!important;
+}
+.ops-page .internal-copied-hero .brief-item{
+  padding:15px 16px!important;
+  border:1px solid rgba(118,70,64,.12)!important;
+  border-radius:20px!important;
+  background:rgba(255,252,247,.68)!important;
+  box-shadow:0 18px 48px rgba(95,25,40,.07)!important;
+}
 .ops-page .internal-copied-hero .brief-item b{display:block!important;color:#2f2321!important}
 .ops-page .internal-copied-hero .brief-item span{display:block!important;margin-top:6px!important;color:#7b625c!important;font-size:13px!important;line-height:1.55!important}
 .ops-page .internal-copied-hero .hero-ribbon{display:flex!important;flex-wrap:wrap!important;gap:9px!important;margin-top:16px!important}
@@ -87,8 +229,31 @@
 .ops-page .internal-copied-hero .btn.primary{background:#8d2f3f!important;color:#fff!important;box-shadow:0 14px 30px rgba(141,47,63,.18)!important}
 .ops-page .internal-copied-hero .btn.ghost{border:1px solid rgba(141,47,63,.18)!important;background:rgba(255,255,255,.68)!important;color:#8d2f3f!important}
 
-.ops-page .internal-copied-hero .photo-carousel{display:block!important;position:relative!important;width:100%!important;height:auto!important;aspect-ratio:4/5!important;min-height:0!important;max-height:525px!important;border:1px solid rgba(200,155,84,.38)!important;border-radius:34px!important;overflow:hidden!important;box-shadow:0 34px 100px rgba(95,25,40,.22)!important;background:#fff7ee!important}
-.ops-page .internal-copied-hero .photo-carousel img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center center!important;opacity:0!important;transition:opacity .7s ease,transform 1s ease!important}
+/* Right photo column */
+.ops-page .internal-copied-hero .photo-carousel{
+  display:block!important;
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:4/5!important;
+  min-height:0!important;
+  max-height:525px!important;
+  border:1px solid rgba(200,155,84,.38)!important;
+  border-radius:34px!important;
+  overflow:hidden!important;
+  box-shadow:0 34px 100px rgba(95,25,40,.22)!important;
+  background:#fff7ee!important;
+}
+.ops-page .internal-copied-hero .photo-carousel img{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center center!important;
+  opacity:0!important;
+  transition:opacity .7s ease,transform 1s ease!important;
+}
 .ops-page .internal-copied-hero .photo-carousel img.active{opacity:1!important}
 .ops-page .internal-copied-hero .photo-dots{position:absolute!important;z-index:5!important;right:22px!important;top:22px!important;display:flex!important;gap:8px!important}
 .ops-page .internal-copied-hero .photo-dots button{width:9px!important;height:9px!important;padding:0!important;border:0!important;border-radius:50%!important;background:rgba(255,255,255,.55)!important}
@@ -98,18 +263,30 @@
 .ops-page .internal-copied-hero .photo-caption small{display:block!important;margin-top:3px!important;opacity:.9!important}
 .ops-page .internal-copied-hero .wedding-photo-frame:before{content:"Wedding Photos"!important;position:absolute!important;z-index:4!important;left:22px!important;top:-12px!important;padding:8px 13px!important;border:1px solid rgba(255,255,255,.55)!important;border-radius:999px!important;color:#fff!important;background:linear-gradient(135deg,rgba(141,47,63,.88),rgba(95,25,40,.82))!important;box-shadow:0 14px 32px rgba(95,25,40,.20)!important;font-size:12px!important;font-weight:900!important;letter-spacing:.12em!important;text-transform:uppercase!important}
 .ops-page .internal-copied-hero .wedding-photo-frame:after{content:""!important;position:absolute!important;inset:-12px!important;z-index:-1!important;border-radius:42px!important;background:linear-gradient(135deg,rgba(200,155,84,.28),rgba(141,47,63,.12))!important;filter:blur(2px)!important}
-.ops-page .internal-copied-hero .countdown{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:8px!important;max-width:none!important;padding:12px!important;border:1px solid rgba(200,155,84,.28)!important;border-radius:24px!important;background:linear-gradient(145deg,rgba(141,47,63,.12),rgba(255,255,255,.74))!important;box-shadow:0 18px 48px rgba(95,25,40,.10)!important}
+.ops-page .internal-copied-hero .countdown{
+  display:grid!important;
+  grid-template-columns:repeat(4,1fr)!important;
+  gap:8px!important;
+  max-width:none!important;
+  padding:12px!important;
+  border:1px solid rgba(200,155,84,.28)!important;
+  border-radius:24px!important;
+  background:linear-gradient(145deg,rgba(141,47,63,.12),rgba(255,255,255,.74))!important;
+  box-shadow:0 18px 48px rgba(95,25,40,.10)!important;
+}
 .ops-page .internal-copied-hero .countdown div{min-height:64px!important;display:grid!important;place-items:center!important;align-content:center!important;border-radius:16px!important;background:rgba(255,255,255,.62)!important}
 .ops-page .internal-copied-hero .countdown strong{font-size:26px!important;color:#8d2f3f!important;line-height:1!important}
 .ops-page .internal-copied-hero .countdown span{font-size:10px!important;color:#7b625c!important;letter-spacing:.08em!important;text-transform:uppercase!important}
 
+/* Quick entry */
 .ops-page .internal-quick-entry{padding-top:18px!important}
 .ops-page .internal-quick-entry .module-map{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;margin-top:0!important}
 .ops-page .internal-quick-entry .module-tile{min-height:164px!important}
 
 @media(max-width:1180px){
   .ops-page .internal-copied-hero{grid-template-columns:1fr!important}
-  .ops-page .internal-copied-hero .hero-panel{max-width:520px!important;justify-self:center!important}
+  .ops-page .internal-copied-hero .internal-hero-copy{grid-column:1!important;max-width:none!important}
+  .ops-page .internal-copied-hero .internal-hero-media{grid-column:1!important;max-width:520px!important;justify-self:center!important;margin-top:8px!important}
   .ops-page .internal-copied-hero .photo-carousel{aspect-ratio:4/5!important;max-height:none!important}
   .ops-page .internal-quick-entry .module-map{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
