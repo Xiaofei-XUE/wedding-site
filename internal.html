@@ -9,13 +9,21 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <link rel="stylesheet" href="assets/style.css?v=home-layout-20260610">
-  <link rel="stylesheet" href="assets/layout.css?v=deep-layout-v2-20260611">
-  <link rel="stylesheet" href="assets/tables.css?v=table-board-20260611">
-  <link rel="stylesheet" href="assets/visual.css?v=visual-layout-20260611">
-  <link id="internalHeroStyle" rel="stylesheet" href="assets/internal-hero.css?v=clean-border-20260611-v2">
-  <link rel="stylesheet" href="assets/mobile.css?v=clean-border-20260611-v2">
-  <script src="assets/app.js?v=elegant-copy-20260611-v2" defer></script>
+  <script>
+    (function(){
+      var v = Date.now();
+      ['style','layout','tables','visual','internal-hero','mobile'].forEach(function(name){
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'assets/' + name + '.css?v=' + v;
+        document.head.appendChild(link);
+      });
+      var script = document.createElement('script');
+      script.src = 'assets/app.js?v=' + v;
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  </script>
 </head>
 <body class="ops-page">
 <header class="topbar">
