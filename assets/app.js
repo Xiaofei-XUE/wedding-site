@@ -137,6 +137,33 @@ function addHonoredGuestsSection() {
   }
 }
 
+function moveVisualLayoutForward() {
+  const visual = document.querySelector('#visual-layout');
+  const honored = document.querySelector('#honored-guests');
+  const risks = document.querySelector('#risks');
+  if (!visual) return;
+
+  if (honored) {
+    honored.insertAdjacentElement('afterend', visual);
+  } else if (risks) {
+    risks.insertAdjacentElement('afterend', visual);
+  }
+
+  const nav = document.querySelector('.topbar .nav');
+  if (nav) {
+    const visualLink = nav.querySelector('a[href="#visual-layout"]');
+    const guestsLink = nav.querySelector('a[href="#guests"]');
+    if (visualLink && guestsLink) nav.insertBefore(visualLink, guestsLink);
+  }
+
+  const pills = document.querySelector('.nav-pills');
+  if (pills) {
+    const visualLink = pills.querySelector('a[href="#visual-layout"]');
+    const guestsLink = pills.querySelector('a[href="#guests"]');
+    if (visualLink && guestsLink) pills.insertBefore(visualLink, guestsLink);
+  }
+}
+
 function reserveWangTeacherTable() {
   if (!document.body.classList.contains('ops-page')) return;
 
@@ -357,6 +384,7 @@ async function init() {
   setupShareButtons();
   addGroomFamilyKpi();
   addHonoredGuestsSection();
+  moveVisualLayoutForward();
   reserveWangTeacherTable();
   setupOpsCollapsibles();
 
