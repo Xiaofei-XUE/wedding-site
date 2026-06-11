@@ -47,7 +47,7 @@ function bindMenu() {
 
 function setupInternalHero() {
   if (!document.body.classList.contains('ops-page')) return;
-  ensureStylesheet('internalHeroStyle', 'assets/internal-hero.css?v=isolated-internal-hero-20260611-v3');
+  ensureStylesheet('internalHeroStyle', 'assets/internal-hero.css?v=isolated-internal-hero-20260611-v4');
   const home = $('#home');
   if (!home || home.dataset.internalHeroReady === '1') return;
 
@@ -85,12 +85,12 @@ function setupInternalHero() {
         <a href="#cars" class="btn ghost">查看婚车安排</a>
       </div>
     </div>
-    <div class="internal-hero-media hero-panel wedding-photo-frame" id="photos">
-      <article class="photo-carousel" id="photoCarousel">
-        <div class="photo-dots" id="photoDots"></div>
-        <div class="photo-caption"><strong>Our Wedding Photos</strong><small>晓飞 &amp; 艾琳</small></div>
+    <div class="internal-hero-media" id="photos">
+      <article class="internal-photo-card" id="photoCarousel">
+        <div class="internal-photo-dots" id="photoDots"></div>
+        <div class="internal-photo-caption"><strong>Our Wedding Photos</strong><small>晓飞 &amp; 艾琳</small></div>
       </article>
-      <div class="countdown">
+      <div class="internal-countdown">
         <div><strong id="d">--</strong><span>Days</span></div>
         <div><strong id="h">--</strong><span>Hours</span></div>
         <div><strong id="m">--</strong><span>Minutes</span></div>
