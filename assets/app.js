@@ -173,9 +173,61 @@ function applyGuestView() {
   }
 }
 
+function setupShareButtons() {
+  const buttons = [$('#shareBtn'), ...document.querySelectorAll('[data-share-button]')].filter(Boolean);
+  if (!buttons.length) return;
+
+  const shareData = {
+    title: '薛晓飞 & 王艾琳 · Wedding Day',
+    text: '诚邀您参加我们的婚礼：2026年7月29日 11:58，沂南天龙蓝海国际大饭店。',
+    url: 'https://xiaofei-xue.github.io/wedding-site/'
+  };
+
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(shareData.url);
+      return true;
+    } catch (error) {
+      const input = document.createElement('input');
+      input.value = shareData.url;
+      document.body.appendChild(input);
+      input.select();
+      const copied = document.execCommand('copy');
+      input.remove();
+      return copied;
+    }
+  }
+
+  async function handleShare(event) {
+    const button = event.currentTarget;
+    const oldText = button.textContent;
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch (error) {
+        if (error && error.name === 'AbortError') return;
+      }
+    }
+
+    const copied = await copyLink();
+    button.textContent = copied ? '链接已复制' : '请复制当前网址';
+    window.setTimeout(() => {
+      button.textContent = oldText;
+    }, 1800);
+
+    if (copied) {
+      window.alert('婚礼网站链接已复制。微信里可以粘贴发送给亲友；如果在微信内打开，也可以点右上角“…”分享。');
+    }
+  }
+
+  buttons.forEach((button) => button.addEventListener('click', handleShare));
+}
+
 async function init() {
   bindMenu();
   applyGuestView();
+  setupShareButtons();
 
   try {
     const site = await loadJson('bundle/a.json');
