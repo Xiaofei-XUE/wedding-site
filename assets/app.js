@@ -107,11 +107,11 @@ function addHonoredGuestsSection() {
       <p class="section-note">证婚人属于婚礼仪式核心角色，单独管理，不放入普通人员分工表。</p>
     </div>
     <div class="table-panel">
-      <div class="table-title"><h3>证婚人与仪式嘉宾</h3><span>建议后续补充沟通状态、发言时间和主持人衔接方式</span></div>
+      <div class="table-title"><h3>证婚人与仪式嘉宾</h3><span>证婚人单独预留大厅11桌，与硕博同学同桌</span></div>
       <table class="work-table">
-        <thead><tr><th>角色</th><th>人员</th><th>仪式职责</th><th>当前状态</th><th>下一步</th></tr></thead>
+        <thead><tr><th>角色</th><th>人员</th><th>仪式职责</th><th>桌位安排</th><th>当前状态</th><th>下一步</th></tr></thead>
         <tbody>
-          <tr><td>证婚人</td><td>王老师</td><td>婚礼仪式证婚发言，见证新人婚礼仪式</td><td><span class="tag wait">重点沟通</span></td><td>确认是否邀请、发言时长、主持人串词与上台时间</td></tr>
+          <tr><td>证婚人</td><td>王老师</td><td>婚礼仪式证婚发言，见证新人婚礼仪式</td><td>大厅11桌 · 王老师/硕博同学桌</td><td><span class="tag wait">重点沟通</span></td><td>确认是否邀请、发言时长、主持人串词、上台时间及同桌硕博同学名单</td></tr>
         </tbody>
       </table>
     </div>
@@ -134,6 +134,28 @@ function addHonoredGuestsSection() {
     link.textContent = '重要嘉宾/证婚人';
     const guestsLink = pills.querySelector('a[href="#guests"]');
     pills.insertBefore(link, guestsLink || null);
+  }
+}
+
+function reserveWangTeacherTable() {
+  if (!document.body.classList.contains('ops-page')) return;
+
+  const hallNodes = Array.from(document.querySelectorAll('#visual-layout .table-node'));
+  const table11 = hallNodes.find((node) => node.querySelector('strong')?.textContent.trim() === '11桌');
+  if (table11) {
+    table11.classList.remove('warn');
+    table11.classList.add('confirmed');
+    const note = table11.querySelector('small');
+    if (note) note.innerHTML = '王老师<br>硕博同学';
+  }
+
+  const guestSummaryBody = document.querySelector('#guests .table-panel .work-table tbody');
+  if (guestSummaryBody && !guestSummaryBody.querySelector('[data-group="wang-grad"]')) {
+    const row = document.createElement('tr');
+    row.dataset.group = 'wang-grad';
+    row.innerHTML = '<td>王老师与硕博同学</td><td>待确认</td><td>待定</td><td>大厅11桌</td><td><span class="tag done">单独预留一桌</span></td>';
+    const brideClassmateRow = Array.from(guestSummaryBody.children).find((tr) => tr.children[0]?.textContent.includes('新娘同学'));
+    guestSummaryBody.insertBefore(row, brideClassmateRow || guestSummaryBody.firstElementChild);
   }
 }
 
@@ -339,6 +361,7 @@ async function init() {
   setupShareButtons();
   addGroomFamilyKpi();
   addHonoredGuestsSection();
+  reserveWangTeacherTable();
   setupOpsCollapsibles();
 
   try {
