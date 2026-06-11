@@ -197,7 +197,7 @@ function renderGuests(guests) {
   summary.innerHTML = `<span>宾客：${esc(summaryText)}。</span>`;
   policy.innerHTML = guests.policy ? `<strong>规则：</strong>${esc(guests.policy)}` : '';
   groups.innerHTML = guestGroups.map((group) => `
-    <details class="guest-group" ${group.open ? 'open' : ''}>
+    <details class="guest-group">
       <summary>
         <div class="guest-group-title"><strong>${esc(group.name)}</strong><span>${esc(group.summary)}</span></div>
         <div class="guest-group-count">${esc(group.countLabel)}</div>
@@ -247,11 +247,13 @@ function setupOpsCollapsibles() {
     move.forEach((item) => body.appendChild(item));
     section.appendChild(body);
 
+    section.classList.add('is-collapsed');
+
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'ops-toggle';
-    button.setAttribute('aria-expanded', 'true');
-    button.textContent = '收起';
+    button.setAttribute('aria-expanded', 'false');
+    button.textContent = '展开';
     head.appendChild(button);
     section.dataset.collapsibleReady = '1';
     button.addEventListener('click', () => {
