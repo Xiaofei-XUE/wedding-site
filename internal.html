@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="assets/style.css?v=home-layout-20260610">
   <link rel="stylesheet" href="assets/layout.css?v=deep-layout-v2-20260611">
   <link rel="stylesheet" href="assets/tables.css?v=table-board-20260611">
+  <link rel="stylesheet" href="assets/visual.css?v=visual-layout-20260611">
   <script src="assets/app.js?v=wechat-copy-20260611" defer></script>
 </head>
 <body class="ops-page">
@@ -26,6 +27,7 @@
       <a href="#home">总览</a>
       <a href="#risks">风险</a>
       <a href="#guests">宾客</a>
+      <a href="#visual-layout">图形</a>
       <a href="#rooms">住宿</a>
       <a href="#meals">包间</a>
       <a href="#todo">待办</a>
@@ -55,6 +57,7 @@
         <div class="nav-pills">
           <a href="#risks">待处理风险</a>
           <a href="#guests">宾客确认</a>
+          <a href="#visual-layout">桌位/包间图</a>
           <a href="#rooms">住宿安排</a>
           <a href="#meals">晚餐/午餐包间</a>
           <a href="#todo">备婚待办</a>
@@ -104,6 +107,68 @@
         <div class="guest-summary" id="guestSummary"></div>
         <div class="guest-policy" id="guestPolicy"></div>
         <div class="guest-groups" id="guestGroups"></div>
+      </div>
+    </section>
+
+    <section id="visual-layout" class="section ops-section">
+      <div class="section-split-head">
+        <div class="heading"><p class="kicker">Layout View</p><h2>大厅桌位与包间示意图</h2></div>
+        <p class="section-note">图形化展示比纯表格更直观。先看整体布局，再结合下方表格确认细节。</p>
+      </div>
+
+      <div class="table-panel">
+        <div class="table-title"><h3>婚礼大厅桌位图</h3><span>15桌大厅示意，后续可继续填写每桌具体人员</span></div>
+        <div class="hall-visual">
+          <div class="hall-stage">舞台 / 仪式区</div>
+          <div class="hall-main-table">
+            <div class="table-node main"><strong>主桌</strong><small>新人 / 双方父母</small></div>
+          </div>
+          <div class="hall-grid">
+            <div class="table-node"><strong>1桌</strong><small>待分配</small></div>
+            <div class="table-node"><strong>2桌</strong><small>待分配</small></div>
+            <div class="table-node"><strong>3桌</strong><small>待分配</small></div>
+            <div class="table-node"><strong>4桌</strong><small>待分配</small></div>
+            <div class="table-node"><strong>5桌</strong><small>待分配</small></div>
+            <div class="table-node"><strong>6桌</strong><small>待分配</small></div>
+            <div class="table-node"><strong>7桌</strong><small>待分配</small></div>
+            <div class="table-node"><strong>8桌</strong><small>待分配</small></div>
+            <div class="table-node"><strong>9桌</strong><small>待分配</small></div>
+            <div class="table-node"><strong>10桌</strong><small>待分配</small></div>
+            <div class="table-node warn"><strong>11桌</strong><small>同学/机动</small></div>
+            <div class="table-node"><strong>12桌</strong><small>待分配</small></div>
+            <div class="table-node"><strong>13桌</strong><small>待分配</small></div>
+            <div class="table-node"><strong>14桌</strong><small>待分配</small></div>
+            <div class="table-node"><strong>15桌</strong><small>待分配</small></div>
+          </div>
+          <div class="hall-entry">入口 / 签到区</div>
+        </div>
+        <div class="layout-legend">
+          <span class="legend-item"><i class="legend-dot done"></i>已确定</span>
+          <span class="legend-item"><i class="legend-dot warn"></i>需调整/机动</span>
+          <span class="legend-item"><i class="legend-dot wait"></i>待分配</span>
+        </div>
+        <p class="visual-note">说明：目前大厅15桌先做示意。后续可以把“待分配”替换成男方亲友、女方亲友、同学、领导师长等实际分组。</p>
+      </div>
+
+      <div class="visual-split">
+        <div class="table-panel">
+          <div class="table-title"><h3>7月28日晚餐包间示意</h3><span>钟鼎楼二楼</span></div>
+          <div class="room-visual-grid">
+            <div class="room-box confirmed"><strong>高朋</strong><span>30位</span><small>女方亲友</small></div>
+            <div class="room-box risk"><strong>秋水</strong><span>14位</span><small>新郎同学<br>当前15人，需加位或调剂</small></div>
+            <div class="room-box pending"><strong>胜友</strong><span>20位</span><small>新娘同学 / 双方同学<br>已添加宋卓然、鲁玫昕</small></div>
+            <div class="room-box spare"><strong>长天</strong><span>10位</span><small>机动备用</small></div>
+          </div>
+        </div>
+        <div class="table-panel">
+          <div class="table-title"><h3>7月29日午餐包间示意</h3><span>女方亲友单间 + 男方陪酒</span></div>
+          <div class="room-visual-grid">
+            <div class="room-box pending"><strong>俊采</strong><span>10位</span><small>女方亲友<br>陪酒待定</small></div>
+            <div class="room-box pending"><strong>星驰</strong><span>10位</span><small>女方亲友<br>陪酒待定</small></div>
+            <div class="room-box pending"><strong>青云</strong><span>10位</span><small>女方亲友<br>陪酒待定</small></div>
+            <div class="room-box spare"><strong>备用</strong><span>14 / 12 / 10位</span><small>钟鸣 / 鼎食 / 良辰</small></div>
+          </div>
+        </div>
       </div>
     </section>
 
