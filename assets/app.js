@@ -173,6 +173,43 @@ function applyGuestView() {
   }
 }
 
+function setupOpsCollapsibles() {
+  const page = document.body;
+  if (!page || !page.classList.contains('ops-page')) return;
+
+  document.querySelectorAll('.ops-section').forEach((section) => {
+    const head = section.querySelector(':scope > .section-split-head');
+    if (!head || section.dataset.collapsibleReady === '1') return;
+
+    const body = document.createElement('div');
+    body.className = 'ops-collapsible-body';
+    const move = [];
+    let node = head.nextElementSibling;
+    while (node) {
+      move.push(node);
+      node = node.nextElementSibling;
+    }
+    move.forEach((item) => body.appendChild(item));
+    section.appendChild(body);
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'ops-toggle';
+    button.setAttribute('aria-expanded', 'false');
+    button.textContent = '展开';
+    head.appendChild(button);
+
+    section.classList.add('is-collapsed');
+    section.dataset.collapsibleReady = '1';
+
+    button.addEventListener('click', () => {
+      const collapsed = section.classList.toggle('is-collapsed');
+      button.textContent = collapsed ? '展开' : '收起';
+      button.setAttribute('aria-expanded', String(!collapsed));
+    });
+  });
+}
+
 function setupShareButtons() {
   const buttons = [$('#shareBtn'), ...document.querySelectorAll('[data-share-button]')].filter(Boolean);
   if (!buttons.length) return;
@@ -243,6 +280,7 @@ async function init() {
   bindMenu();
   applyGuestView();
   setupShareButtons();
+  setupOpsCollapsibles();
 
   try {
     const site = await loadJson('bundle/a.json');
