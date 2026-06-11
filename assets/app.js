@@ -142,12 +142,8 @@ function reserveWangTeacherTable() {
   }
 }
 
-function carRow(vehicle, use, people, driver, route, status, tag = 'wait') {
-  return `<tr><td>${vehicle}</td><td>${use}</td><td>${people}</td><td>${driver}</td><td>${route}</td><td><span class="tag ${tag}">${status}</span></td></tr>`;
-}
-
-function passengerRow(vehicle, seat, people, items, note, tag = 'wait') {
-  return `<tr><td>${vehicle}</td><td>${seat}</td><td>${people}</td><td>${items}</td><td><span class="tag ${tag}">${note}</span></td></tr>`;
+function carSeatRow(vehicle, use, people, driver, items, route, status, tag = 'wait') {
+  return `<tr><td>${vehicle}</td><td>${use}</td><td>${people}</td><td>${driver}</td><td>${items}</td><td>${route}</td><td><span class="tag ${tag}">${status}</span></td></tr>`;
 }
 
 function addCarSeatingSection() {
@@ -157,48 +153,31 @@ function addCarSeatingSection() {
   const anchor = visual || guests;
   if (!anchor) return;
 
-  const route = '蓝海酒店 → 县城朝阳公园取景 → 绕一圈 → 回婚礼酒店过门';
+  const fullRoute = '蓝海酒店 → 县城朝阳公园取景 → 绕一圈 → 回婚礼酒店过门';
+  const followRoute = '跟随主婚车';
   const section = document.createElement('section');
   section.id = 'cars';
   section.className = 'section ops-section';
   section.innerHTML = `
     <div class="section-split-head">
       <div class="heading"><p class="kicker">Cars</p><h2>婚车座位安排表</h2></div>
-      <p class="section-note">车队共10辆：劳斯莱斯古斯特1辆、奔驰E300婚车8辆、录像车1辆。集合/发嫁/到达/婚礼酒店均为蓝海酒店。</p>
+      <p class="section-note">车队共10辆：劳斯莱斯古斯特1辆、奔驰E300婚车8辆、录像车1辆。每辆车一行，同时记录乘坐人员、司机车牌、携带物品和路线。</p>
     </div>
     <div class="table-panel">
-      <div class="table-title"><h3>婚车总览</h3><span>正式车队：1辆古斯特 + 8辆奔驰E300 + 1辆录像车</span></div>
+      <div class="table-title"><h3>婚车安排合并表</h3><span>集合/发嫁/到达/婚礼酒店均为蓝海酒店；后续重点补司机、车牌和具体乘坐人员</span></div>
       <table class="work-table">
-        <thead><tr><th>车辆</th><th>用途</th><th>乘坐人员</th><th>司机/车牌</th><th>路线与时间</th><th>状态</th></tr></thead>
+        <thead><tr><th>车辆</th><th>用途</th><th>乘坐人员</th><th>司机/车牌</th><th>携带物品</th><th>路线与时间</th><th>状态/备注</th></tr></thead>
         <tbody>
-          ${carRow('1号车 · 劳斯莱斯古斯特', '主婚车', '新郎、新娘', '待补充', route, '主婚车已定', 'done')}
-          ${carRow('2号车 · 奔驰E300', '跟车', '伴郎/伴娘/随行人员待排', '待补充', '跟随主婚车', '人员待排')}
-          ${carRow('3号车 · 奔驰E300', '跟车', '伴郎/伴娘/随行人员待排', '待补充', '跟随主婚车', '人员待排')}
-          ${carRow('4号车 · 奔驰E300', '跟车', '双方父母/重要亲友待排', '待补充', '跟随主婚车', '人员待排')}
-          ${carRow('5号车 · 奔驰E300', '跟车', '双方父母/重要亲友待排', '待补充', '跟随主婚车', '人员待排')}
-          ${carRow('6号车 · 奔驰E300', '跟车', '男方亲友/工作人员待排', '待补充', '跟随主婚车', '人员待排')}
-          ${carRow('7号车 · 奔驰E300', '跟车', '女方亲友/工作人员待排', '待补充', '跟随主婚车', '人员待排')}
-          ${carRow('8号车 · 奔驰E300', '跟车', '机动亲友待排', '待补充', '跟随主婚车', '人员待排')}
-          ${carRow('9号车 · 奔驰E300', '跟车/机动', '机动亲友、物料或工作人员', '待补充', '跟随主婚车', '机动预留', 'progress')}
-          ${carRow('10号车 · 录像车', '录像与拍摄保障', '录像团队', '待补充', '跟随/提前机位，按摄影摄像需求调整', '录像车已列入', 'done')}
-        </tbody>
-      </table>
-    </div>
-    <div class="table-panel">
-      <div class="table-title"><h3>乘坐人员明细</h3><span>下一步重点：逐人确认坐哪辆车、司机是谁、车牌是什么</span></div>
-      <table class="work-table">
-        <thead><tr><th>车辆</th><th>座位/位置</th><th>人员</th><th>携带物品</th><th>备注</th></tr></thead>
-        <tbody>
-          ${passengerRow('1号车 · 劳斯莱斯古斯特', '后排', '新郎、新娘', '手捧花、戒指盒等需另确认', '确认物品保管人', 'risk')}
-          ${passengerRow('2号车 · 奔驰E300', '待定', '伴郎/伴娘优先', '堵门红包、婚鞋、急救包、补妆包', '座位待排')}
-          ${passengerRow('3号车 · 奔驰E300', '待定', '伴郎/伴娘/随行人员', '随身物品', '座位待排')}
-          ${passengerRow('4号车 · 奔驰E300', '待定', '双方父母或重要亲友', '胸花、红包、随身物品', '人员待补充')}
-          ${passengerRow('5号车 · 奔驰E300', '待定', '双方父母或重要亲友', '随身物品', '人员待补充')}
-          ${passengerRow('6号车 · 奔驰E300', '待定', '男方亲友/工作人员', '备用物料', '人员待补充')}
-          ${passengerRow('7号车 · 奔驰E300', '待定', '女方亲友/工作人员', '备用物料', '人员待补充')}
-          ${passengerRow('8号车 · 奔驰E300', '待定', '机动亲友', '备用物料', '机动', 'progress')}
-          ${passengerRow('9号车 · 奔驰E300', '待定', '机动亲友/物料', '备用物料', '机动', 'progress')}
-          ${passengerRow('10号车 · 录像车', '待定', '录像团队', '拍摄设备', '拍摄保障', 'done')}
+          ${carSeatRow('1号车 · 劳斯莱斯古斯特', '主婚车', '新郎、新娘', '待补充', '手捧花、戒指盒等需另确认', fullRoute, '主婚车已定；确认物品保管人', 'done')}
+          ${carSeatRow('2号车 · 奔驰E300', '跟车', '伴郎/伴娘优先', '待补充', '堵门红包、婚鞋、急救包、补妆包', followRoute, '座位待排')}
+          ${carSeatRow('3号车 · 奔驰E300', '跟车', '伴郎/伴娘/随行人员待排', '待补充', '随身物品', followRoute, '座位待排')}
+          ${carSeatRow('4号车 · 奔驰E300', '跟车', '双方父母或重要亲友待排', '待补充', '胸花、红包、随身物品', followRoute, '人员待补充')}
+          ${carSeatRow('5号车 · 奔驰E300', '跟车', '双方父母或重要亲友待排', '待补充', '随身物品', followRoute, '人员待补充')}
+          ${carSeatRow('6号车 · 奔驰E300', '跟车', '男方亲友/工作人员待排', '待补充', '备用物料', followRoute, '人员待补充')}
+          ${carSeatRow('7号车 · 奔驰E300', '跟车', '女方亲友/工作人员待排', '待补充', '备用物料', followRoute, '人员待补充')}
+          ${carSeatRow('8号车 · 奔驰E300', '跟车', '机动亲友待排', '待补充', '备用物料', followRoute, '机动预留', 'progress')}
+          ${carSeatRow('9号车 · 奔驰E300', '跟车/机动', '机动亲友、物料或工作人员', '待补充', '备用物料', followRoute, '机动预留', 'progress')}
+          ${carSeatRow('10号车 · 录像车', '录像与拍摄保障', '录像团队', '待补充', '拍摄设备', '跟随/提前机位，按摄影摄像需求调整', '录像车已列入', 'done')}
         </tbody>
       </table>
     </div>
