@@ -47,7 +47,7 @@ function bindMenu() {
 
 function setupInternalHero() {
   if (!document.body.classList.contains('ops-page')) return;
-  ensureStylesheet('internalHeroStyle', 'assets/internal-hero.css?v=ops-clean-hero-20260611-v3');
+  ensureStylesheet('internalHeroStyle', 'assets/internal-hero.css?v=elegant-copy-20260611-v1');
   const home = $('#home');
   if (!home || home.dataset.internalHeroReady === '1') return;
 
@@ -56,37 +56,37 @@ function setupInternalHero() {
     <div class="ops-hero-bg" aria-hidden="true"><span>囍</span><span>良辰</span><span>佳期</span></div>
 
     <div class="ops-hero-copy">
-      <p class="ops-eyebrow">Wedding Ops</p>
+      <p class="ops-eyebrow">Wedding Preparation</p>
       <div class="ops-title-card">
         <span class="ops-title-seal">囍</span>
         <h1>晓飞 <span>&amp;</span> 艾琳</h1>
-        <p>备婚总控台</p>
+        <p>婚礼筹备安排</p>
       </div>
-      <p class="ops-lead">宾客、住宿、包间、婚车、流程和风险集中管理。</p>
+      <p class="ops-lead">把宾客、席位、住宿、宴席、婚车、流程和人员安排集中整理，方便婚礼前逐项确认。</p>
 
       <div class="ops-status-row">
-        <span><b>总控</b> 风险 / 桌位 / 婚车</span>
-        <span><b>重点</b> 宾客 / 住宿 / 陪酒</span>
-        <span><b>执行</b> 流程 / 分工 / 联系人</span>
+        <span><b>席位</b> 大厅 / 包间 / 重要嘉宾</span>
+        <span><b>接待</b> 宾客 / 住宿 / 陪酒</span>
+        <span><b>执行</b> 流程 / 人员 / 服务商</span>
       </div>
 
       <div class="ops-brief-grid">
         <article><b>2026年7月29日 11:58</b><small>婚礼午宴</small></article>
-        <article><b>沂南天龙蓝海国际大饭店</b><small>大厅 / 包间 / 住宿</small></article>
-        <article><b>当前优先</b><small>桌位 · 婚车 · 宾客 · 住宿</small></article>
-        <article><b>内部入口</b><small>风险 · 人员 · 联系人</small></article>
+        <article><b>沂南天龙蓝海国际大饭店</b><small>婚宴 / 包间 / 住宿</small></article>
+        <article><b>近期确认</b><small>席位 · 婚车 · 宾客 · 住宿</small></article>
+        <article><b>婚礼执行</b><small>流程 · 人员 · 服务商</small></article>
       </div>
 
       <div class="ops-ribbon">
-        <span><b>风险</b> 执行</span>
-        <span><b>桌位</b> 大厅/包间</span>
+        <span><b>重点</b> 待确认事项</span>
+        <span><b>席位</b> 大厅 / 包间</span>
         <span><b>婚车</b> 10辆</span>
         <span><b>宾客</b> 分组</span>
       </div>
 
       <div class="ops-actions">
-        <a href="#risks" class="ops-btn ops-btn-primary">看风险</a>
-        <a href="#visual-layout" class="ops-btn">看桌位</a>
+        <a href="#risks" class="ops-btn ops-btn-primary">看重点事项</a>
+        <a href="#visual-layout" class="ops-btn">看席位</a>
         <a href="#cars" class="ops-btn">看婚车</a>
       </div>
     </div>
@@ -113,14 +113,14 @@ function setupInternalHero() {
   quick.className = 'section ops-quick-entry';
   quick.innerHTML = `
     <div class="ops-module-grid">
-      <a class="ops-module" href="#risks"><span>Risk</span><strong>风险</strong><small>当天执行风险</small></a>
+      <a class="ops-module" href="#risks"><span>Priority</span><strong>重点事项</strong><small>近期需要确认的安排</small></a>
       <a class="ops-module" href="#honored-guests"><span>Guest</span><strong>嘉宾</strong><small>证婚人与仪式嘉宾</small></a>
-      <a class="ops-module" href="#visual-layout"><span>Layout</span><strong>桌位</strong><small>大厅与包间</small></a>
-      <a class="ops-module" href="#cars"><span>Cars</span><strong>婚车</strong><small>车辆与乘坐</small></a>
-      <a class="ops-module" href="#guests"><span>Guests</span><strong>宾客</strong><small>分组确认</small></a>
-      <a class="ops-module" href="#rooms"><span>Hotel</span><strong>住宿</strong><small>房型与入住</small></a>
-      <a class="ops-module" href="#meals"><span>Meals</span><strong>包间</strong><small>晚餐与午餐</small></a>
-      <a class="ops-module" href="#todo"><span>Todo</span><strong>待办</strong><small>备婚清单</small></a>
+      <a class="ops-module" href="#visual-layout"><span>Layout</span><strong>席位</strong><small>大厅桌位与包间</small></a>
+      <a class="ops-module" href="#cars"><span>Cars</span><strong>婚车</strong><small>车辆与乘坐安排</small></a>
+      <a class="ops-module" href="#guests"><span>Guests</span><strong>宾客</strong><small>分组与人数确认</small></a>
+      <a class="ops-module" href="#rooms"><span>Hotel</span><strong>住宿</strong><small>房型与入住安排</small></a>
+      <a class="ops-module" href="#meals"><span>Meals</span><strong>宴席</strong><small>晚餐与午餐包间</small></a>
+      <a class="ops-module" href="#todo"><span>List</span><strong>清单</strong><small>婚礼前待确认事项</small></a>
     </div>
   `;
   home.insertAdjacentElement('afterend', quick);
