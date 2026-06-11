@@ -26,6 +26,15 @@ function detailBox(label, value, full = false) {
   return `<div class="detail-box ${full ? 'full' : ''}"><b>${esc(label)}</b>${esc(value)}</div>`;
 }
 
+function ensureStylesheet(id, href) {
+  if (document.getElementById(id)) return;
+  const link = document.createElement('link');
+  link.id = id;
+  link.rel = 'stylesheet';
+  link.href = href;
+  document.head.appendChild(link);
+}
+
 function bindMenu() {
   const menu = $('#menu');
   const nav = $('#nav');
@@ -87,51 +96,78 @@ function renderCountdown(site) {
 
 function setupInternalHero() {
   if (!document.body.classList.contains('ops-page')) return;
-  if (!$('#internalHomeStyle')) {
-    const link = document.createElement('link');
-    link.id = 'internalHomeStyle';
-    link.rel = 'stylesheet';
-    link.href = 'assets/internal-home.css?v=internal-photo-v3';
-    document.head.appendChild(link);
-  }
+  ensureStylesheet('weddingThemeStyle', 'assets/wedding-theme.css?v=copy-public-hero-20260611');
+  ensureStylesheet('internalHomeStyle', 'assets/internal-home.css?v=copy-public-hero-20260611');
+
   const home = $('#home');
-  const inner = home?.querySelector(':scope > div');
-  if (!home || !inner || inner.dataset.internalHeroReady === '1') return;
-
-  const kicker = inner.querySelector(':scope > .kicker');
-  const title = inner.querySelector(':scope > h1');
-  const lead = inner.querySelector(':scope > .lead');
-  const kpi = inner.querySelector(':scope > .ops-kpi');
-  const navPills = inner.querySelector(':scope > .nav-pills');
-  const countdown = inner.querySelector(':scope > .countdown');
-
-  inner.classList.add('internal-home-inner');
-  const heroGrid = document.createElement('div');
-  heroGrid.className = 'internal-hero-grid';
-
-  const copy = document.createElement('div');
-  copy.className = 'internal-hero-copy';
-  [kicker, title, lead].filter(Boolean).forEach((item) => copy.appendChild(item));
-
-  const photoPanel = document.createElement('aside');
-  photoPanel.className = 'internal-hero-photo';
-  photoPanel.innerHTML = `
-    <article class="photo-carousel internal-photo-carousel" id="photoCarousel">
-      <div class="photo-dots" id="photoDots"></div>
-      <div class="photo-caption"><strong>Wedding Photos</strong><small>晓飞 & 艾琳</small></div>
-    </article>
+  if (!home || home.dataset.internalHeroReady === '1') return;
+  home.className = 'section hero wedding-hero internal-copied-hero';
+  home.innerHTML = `
+    <div class="hero-ornaments" aria-hidden="true"><span>囍</span><span>良辰</span><span>佳期</span></div>
+    <div>
+      <p class="kicker">Internal Wedding Operations</p>
+      <div class="hero-title-card">
+        <span class="title-seal">囍</span>
+        <h1>晓飞 <span class="amp">&amp;</span> 艾琳</h1>
+        <p class="hero-subline">备婚总控台 · 内部筹备看板</p>
+      </div>
+      <p class="lead">这里作为我们俩的内部备婚小站：集中记录宾客、住宿、包间、婚车、待办、人员分工和当天执行风险。先看关键事项，再进入各模块细节。</p>
+      <div class="wedding-status-row">
+        <span><b>总控</b> 风险 / 桌位 / 包间 / 婚车</span>
+        <span><b>重点</b> 宾客确认 / 住宿房型 / 陪酒人员</span>
+        <span><b>入口</b> 内部筹备模块集中管理</span>
+      </div>
+      <div class="event-brief">
+        <div class="brief-item"><b>2026年7月29日 11:58</b><span>婚礼当天 · 午宴开席</span></div>
+        <div class="brief-item"><b>沂南天龙蓝海国际大饭店</b><span>婚礼大厅、包间、住宿和婚车集合均围绕酒店安排</span></div>
+        <div class="brief-item"><b>当前优先处理</b><span>桌位包间图、婚车座位、宾客确认、住宿房型</span></div>
+        <div class="brief-item"><b>内部管理入口</b><span>风险、重要嘉宾、桌位、婚车、宾客、住宿、待办</span></div>
+      </div>
+      <div class="hero-ribbon">
+        <span><b>风险</b> 当天执行</span>
+        <span><b>桌位</b> 大厅 / 包间</span>
+        <span><b>婚车</b> 10辆车队</span>
+        <span><b>宾客</b> 按组确认</span>
+      </div>
+      <div class="actions">
+        <a href="#risks" class="btn primary">查看待处理风险</a>
+        <a href="#visual-layout" class="btn ghost">查看桌位包间图</a>
+        <a href="#cars" class="btn ghost">查看婚车安排</a>
+      </div>
+    </div>
+    <div class="hero-panel wedding-photo-frame" id="photos">
+      <article class="photo-carousel" id="photoCarousel">
+        <div class="photo-dots" id="photoDots"></div>
+        <div class="photo-caption"><strong>Our Wedding Photos</strong><small>晓飞 &amp; 艾琳</small></div>
+      </article>
+      <div class="countdown">
+        <div><strong id="d">--</strong><span>Days</span></div>
+        <div><strong id="h">--</strong><span>Hours</span></div>
+        <div><strong id="m">--</strong><span>Minutes</span></div>
+        <div><strong id="s">--</strong><span>Seconds</span></div>
+      </div>
+    </div>
   `;
-  if (countdown) {
-    countdown.removeAttribute('style');
-    countdown.classList.add('internal-mini-countdown');
-    photoPanel.appendChild(countdown);
-  }
 
-  heroGrid.append(copy, photoPanel);
-  inner.insertBefore(heroGrid, kpi || navPills || inner.firstChild);
-  if (kpi) kpi.classList.add('internal-kpi-strip');
-  if (navPills) navPills.classList.add('internal-nav-grid');
-  inner.dataset.internalHeroReady = '1';
+  const oldQuick = $('#internal-quick-entry');
+  if (oldQuick) oldQuick.remove();
+  const quick = document.createElement('section');
+  quick.id = 'internal-quick-entry';
+  quick.className = 'section overview-section internal-quick-entry';
+  quick.innerHTML = `
+    <div class="module-map">
+      <a class="module-tile" href="#risks"><span>Priority</span><strong>待处理风险</strong><small>优先处理影响当天执行的事项。</small></a>
+      <a class="module-tile" href="#honored-guests"><span>Guest</span><strong>重要嘉宾</strong><small>证婚人、仪式嘉宾和重点沟通事项。</small></a>
+      <a class="module-tile" href="#visual-layout"><span>Layout</span><strong>桌位包间图</strong><small>大厅桌位、7月28日晚餐和7月29日午餐包间。</small></a>
+      <a class="module-tile" href="#cars"><span>Cars</span><strong>婚车安排</strong><small>车辆、乘坐人员、司机车牌、路线与携带物品。</small></a>
+      <a class="module-tile" href="#guests"><span>Guests</span><strong>宾客确认</strong><small>按新郎同学、新娘同学、亲友等分组管理。</small></a>
+      <a class="module-tile" href="#rooms"><span>Hotel</span><strong>住宿安排</strong><small>入住人员、房型、拼房和到店时间。</small></a>
+      <a class="module-tile" href="#meals"><span>Meals</span><strong>晚餐午餐</strong><small>7月28日晚餐、7月29日午餐及包间陪酒安排。</small></a>
+      <a class="module-tile" href="#todo"><span>Todo</span><strong>备婚待办</strong><small>按未完成、进行中、已完成持续更新。</small></a>
+    </div>
+  `;
+  home.insertAdjacentElement('afterend', quick);
+  home.dataset.internalHeroReady = '1';
 }
 
 function addHonoredGuestsSection() {
@@ -172,12 +208,6 @@ function moveVisualLayoutForward() {
     const visualLink = nav.querySelector('a[href="#visual-layout"]');
     const guestsLink = nav.querySelector('a[href="#guests"]');
     if (visualLink && guestsLink) nav.insertBefore(visualLink, guestsLink);
-  }
-  const pills = $('.nav-pills');
-  if (pills) {
-    const visualLink = pills.querySelector('a[href="#visual-layout"]');
-    const guestsLink = pills.querySelector('a[href="#guests"]');
-    if (visualLink && guestsLink) pills.insertBefore(visualLink, guestsLink);
   }
 }
 
@@ -240,15 +270,6 @@ function addCarSeatingSection() {
     link.textContent = '婚车';
     const guestsLink = nav.querySelector('a[href="#guests"]');
     nav.insertBefore(link, guestsLink || null);
-  }
-
-  const pills = $('.nav-pills');
-  if (pills && !pills.querySelector('a[href="#cars"]')) {
-    const link = document.createElement('a');
-    link.href = '#cars';
-    link.textContent = '婚车座位安排';
-    const guestsLink = pills.querySelector('a[href="#guests"]');
-    pills.insertBefore(link, guestsLink || null);
   }
 }
 
