@@ -6,9 +6,13 @@
   <title>薛晓飞 & 王艾琳 · Wedding Day</title>
   <meta name="description" content="薛晓飞与王艾琳的婚礼邀请函、婚礼时间、地点、导航与到店指南。">
   <meta name="theme-color" content="#8d2f3f">
+  <meta property="og:title" content="薛晓飞 & 王艾琳 · Wedding Day">
+  <meta property="og:description" content="诚邀您参加我们的婚礼，时间：2026年7月29日 11:58，地点：沂南天龙蓝海国际大饭店。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://xiaofei-xue.github.io/wedding-site/">
   <link rel="stylesheet" href="assets/style.css?v=home-layout-20260610">
   <link rel="stylesheet" href="assets/layout.css?v=deep-layout-v2-20260611">
-  <script src="assets/app.js?v=two-layer-20260611" defer></script>
+  <script src="assets/app.js?v=share-20260611" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -50,7 +54,7 @@
         <div class="actions">
           <a href="#guide" class="btn primary">查看到店指南</a>
           <a href="#schedule" class="btn ghost">查看婚礼流程</a>
-          <a href="#photos" class="btn ghost">查看婚纱照</a>
+          <button class="btn ghost" id="shareBtn" type="button">分享给亲友</button>
         </div>
       </div>
       <div class="hero-panel" id="photos">
@@ -144,6 +148,7 @@
           <div class="actions">
             <a href="#home" class="btn primary">回到首页</a>
             <a href="#guide" class="btn ghost">再次查看导航</a>
+            <button class="btn ghost" data-share-button type="button">分享给亲友</button>
           </div>
         </article>
         <aside class="overview-side">
