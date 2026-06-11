@@ -94,6 +94,19 @@ function addGroomFamilyKpi() {
   grid.insertBefore(card, grid.children[3] || null);
 }
 
+function addWitnessPerson() {
+  const peopleSection = document.querySelector('#people');
+  if (!peopleSection || document.querySelector('[data-role="witness-wang"]')) return;
+
+  const tbody = peopleSection.querySelector('.work-table tbody');
+  if (!tbody) return;
+
+  const row = document.createElement('tr');
+  row.dataset.role = 'witness-wang';
+  row.innerHTML = '<td>证婚人</td><td>王老师</td><td>婚礼仪式证婚发言、见证新人婚礼仪式</td><td><span class="tag wait">待沟通</span></td>';
+  tbody.insertBefore(row, tbody.firstElementChild);
+}
+
 function renderSchedule(schedule) {
   const container = $('#scheduleStages');
   if (!container) return;
@@ -295,6 +308,7 @@ async function init() {
   applyGuestView();
   setupShareButtons();
   addGroomFamilyKpi();
+  addWitnessPerson();
   setupOpsCollapsibles();
 
   try {
