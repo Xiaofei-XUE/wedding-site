@@ -83,6 +83,17 @@ function renderCountdown(site) {
   tick();
 }
 
+function addGroomFamilyKpi() {
+  const grid = document.querySelector('.ops-kpi');
+  if (!grid || document.querySelector('[data-kpi="groom-family"]')) return;
+
+  const card = document.createElement('article');
+  card.className = 'kpi-card';
+  card.dataset.kpi = 'groom-family';
+  card.innerHTML = '<span>男方亲友</span><strong>待补充</strong><small>婚礼大厅为主，可作为陪酒候选</small>';
+  grid.insertBefore(card, grid.children[3] || null);
+}
+
 function renderSchedule(schedule) {
   const container = $('#scheduleStages');
   if (!container) return;
@@ -283,6 +294,7 @@ async function init() {
   bindMenu();
   applyGuestView();
   setupShareButtons();
+  addGroomFamilyKpi();
   setupOpsCollapsibles();
 
   try {
