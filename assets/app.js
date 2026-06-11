@@ -1,5 +1,14 @@
 const $ = (selector) => document.querySelector(selector);
 
+const assetAlias = {
+  'bundle/p/a.jpg': ['baa94651', 'afbd3894', 'e79118f4', '55ee889d', '.jpg'].join(''),
+  'bundle/p/b.jpg': ['ec3ebafb', 'f64a4d4e', '0a4c9fff', 'b2809eba', '.jpg'].join('')
+};
+
+function resolveAssetPath(path) {
+  return assetAlias[path] || path;
+}
+
 function esc(value) {
   return String(value || '').replace(/[&<>"']/g, (match) => ({
     '&': '&amp;',
@@ -31,7 +40,7 @@ function renderPhotos(site) {
 
   photos.forEach((photo, index) => {
     const img = document.createElement('img');
-    img.src = photo.src;
+    img.src = resolveAssetPath(photo.src);
     img.alt = photo.alt || `婚纱照 ${index + 1}`;
     if (index === 0) img.className = 'active';
     carousel.appendChild(img);
