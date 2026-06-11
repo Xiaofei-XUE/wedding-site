@@ -143,7 +143,7 @@ function renderGuests(guests) {
 function renderError(message) {
   const schedule = $('#scheduleStages');
   const guests = $('#guestGroups');
-  const html = `<div class="data-error">${esc(message)}。请检查 data 目录中的 JSON 文件。</div>`;
+  const html = `<div class="data-error">${esc(message)}。请检查数据文件。</div>`;
   if (schedule) schedule.innerHTML = html;
   if (guests) guests.innerHTML = html;
 }
@@ -170,8 +170,8 @@ async function init() {
 
   try {
     const [site, schedule, guests] = await Promise.all([
-      loadJson('data/site.json'),
-      loadJson('data/schedule.json'),
+      loadJson('bundle/a.json'),
+      loadJson('bundle/b.json'),
       loadJson('data/guests.json')
     ]);
 
