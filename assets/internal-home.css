@@ -1,27 +1,2 @@
-/* Internal page: use public homepage hero directly, only fix ops-page conflicts */
-.ops-page .topbar .nav a[href="index.html"]{display:none!important}
-.ops-page .internal-copied-hero{display:grid!important;grid-template-columns:1fr .92fr!important;gap:28px!important;align-items:center!important;padding-top:44px!important;padding-bottom:40px!important}
-.ops-page .internal-copied-hero .photo-carousel{display:block!important;min-height:520px!important;aspect-ratio:2/3!important}
-.ops-page .internal-copied-hero .countdown{display:grid!important;max-width:none!important}
-.ops-page .internal-copied-hero .lead{max-width:620px!important}
-.ops-page .internal-copied-hero .event-brief{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;max-width:720px!important;margin-top:22px!important}
-.ops-page .internal-copied-hero .hero-panel{display:grid!important;position:relative!important;top:auto!important;gap:14px!important}
-.ops-page .internal-copied-hero .wedding-photo-frame{display:grid!important}
-.ops-page .internal-copied-hero .hero-title-card h1{font-size:clamp(48px,7.4vw,92px)!important}
-.ops-page .internal-copied-hero .hero-title-card h1:before{display:none!important}
-.ops-page .internal-copied-hero .actions{margin-top:18px!important}
-.ops-page .internal-quick-entry{padding-top:18px!important}
-.ops-page .internal-quick-entry .module-map{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;margin-top:0!important}
-.ops-page .internal-quick-entry .module-tile{min-height:164px!important}
-@media(max-width:1040px){
-  .ops-page .internal-copied-hero{grid-template-columns:1fr!important}
-  .ops-page .internal-copied-hero .photo-carousel{min-height:520px!important;aspect-ratio:4/5!important}
-  .ops-page .internal-quick-entry .module-map{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-}
-@media(max-width:720px){
-  .ops-page .internal-copied-hero{padding-top:34px!important;padding-bottom:28px!important}
-  .ops-page .internal-copied-hero .event-brief{grid-template-columns:1fr!important}
-  .ops-page .internal-copied-hero .photo-carousel{min-height:430px!important}
-  .ops-page .internal-quick-entry .module-map{grid-template-columns:1fr!important}
-  .ops-page .internal-quick-entry .module-tile{min-height:auto!important}
-}
+/* Deprecated wrapper: internal homepage visual lives in internal-hero.css */
+@import url("internal-hero.css?v=isolated-internal-hero-20260611-v1");
